@@ -4,7 +4,7 @@ const faker = require('faker');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    res.send("users website");
+    res.sendFile(__dirname + '/client/users.html');
 })
 
 
