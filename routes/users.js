@@ -1,15 +1,22 @@
 const express = require('express');
 const faker = require('faker');
+const UsersService = require('./../services/users');
 
+const service = new UsersService();
 const router = express.Router();
 
-router.get('/', (req, res) => {                                                       // HTML
-    res.sendFile(__dirname + '/client/users.html');
+//router.get('/', (req, res) => {                                                       // HTML
+//    res.sendFile(__dirname + '/client/users.html');
+//});
+
+router.get('/', (req, res) => {                                                         // GET all users
+    const users = service.find();
+    res.json(users);
 });
 
-
-router.post('/', (req, res) => {                                                      // POST
-    const body = req.body;
+router.post('/', (req, res) => {                                                        // POST (create a user)
+    let body = req.body;
+    body = service.create(body);
     res.status(201).json({
         message: 'Created!',
         data: body,
@@ -17,26 +24,17 @@ router.post('/', (req, res) => {                                                
 });
 
 
-router.get('/:quantity', (req, res) => {                                              // GET
-    const quantity = parseInt(req.params.quantity);
-    let data = [];
-    for (let i = 0; i < quantity ; i++){
-        data.push({
-            first_name: faker.name.firstName(),
-            last_name: faker.name.lastName(),
-            gender: faker.name.gender(),
-            job_area: faker.name.jobArea(),
-            contact: faker.phone.phoneNumber(),
-        });
-    }
-    res.status(200).json(data);
+router.get('/:id', (req, res) => {                                                   // GET a user
+    const id = req.params.id;
+    const user = service.findOne(id);
+    res.json(user);
 });
 
 
-router.patch('/:id', (req, res) => {                                                   // PATCH
+router.patch('/:id', (req, res) => {                                                   // PATCH (not supported rn)
     const id = req.params.id;
-    const body = req.body;
-    res.status(200).json({
+    let body = req.body;
+    res.json({
         message: 'Updated!',
         data: body,
         id,
@@ -44,11 +42,11 @@ router.patch('/:id', (req, res) => {                                            
 });
 
 
-router.delete('/:id', (req, res) => {                                                  // DELETE
-    const id = req.params.id;
-    res.status(200).json({
-        message: 'Deleted!',
-        id: id,
+router.delete('/:id', (req, res) => {                                                  // DELETE a user
+    let id = req.params.id;
+    id = service.delete(id);
+    res.json({
+        message: id,
     });
 });
 

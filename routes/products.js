@@ -1,39 +1,37 @@
 const express = require('express');
-const faker = require('faker');
+const ProductsService = require('./../services/products');
 
+const service = new ProductsService();
 const router = express.Router();
 
-router.get('/', (req, res) => {
-    res.sendFile(__dirname + '/client/products.html');                               // HTML
+//router.get('/', (req, res) => {
+//    res.sendFile(__dirname + '/client/products.html');                               // HTML
+//});
+
+router.get('/', (req, res) => {                                                      // GET all products
+    const data = service.find();
+    res.json(data);
 });
 
-router.post('/', (req, res) => {                                                     // POST
-    const body = req.body;
+router.post('/', (req, res) => {                                                     // POST (create a product)
+    let body = req.body;
+    body = service.create(body)
     res.status(201).json({
         message: 'Created!',
         data: body,
     });
 });
 
-
-router.get('/:quantity', (req, res) => {                                             // GET
-    const quantity = parseInt(req.params.quantity);
-    let data = [];
-    for (let i = 0; i < quantity ; i++){
-        data.push({
-            name: faker.commerce.productName(),
-            price: faker.commerce.price(),
-            image: faker.image.imageUrl(),
-        })
-    }
-    res.status(200).json(data);
+router.get('/:id', (req, res) => {                                                  // GET product by id
+    const id = req.params.id;
+    const product = service.findOne(id);
+    res.json(product);
 });
 
-
-router.patch('/:id', (req, res) => {                                                 // PATCH
+router.patch('/:id', (req, res) => {                                                 // PATCH (not supported rn)
     const body = req.body;
     const id = req.params.id;
-    res.status(200).json({
+    res.json({
         message: 'Updated!',
         data: body,
         id: id,
@@ -41,11 +39,11 @@ router.patch('/:id', (req, res) => {                                            
 });
 
 
-router.delete('/:id', (req, res) => {                                                 // DELETE
-    const id = req.params.id;
-    res.status(200).json({
-        message: 'Deleted!',
-        id: id,
+router.delete('/:id', (req, res) => {                                                 // DELETE a product
+    let id = req.params.id;
+    id = service.delete(id);
+    res.json({
+        message: id,
     });
 });
 
