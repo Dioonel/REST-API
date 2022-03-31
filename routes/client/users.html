@@ -13,7 +13,23 @@
     <body>
         <div class="thing">
             <h1> Users Webpage </h1>
-            <h2> WIP </h2>
         </div>
+
+        <br/><a href="http://localhost:3000/api/users">Go to users API</a><br/><br/><br/>
+
+        <form action="" id="form1">
+            <label> Search user by ID: </label> <input id="idSearch"> <input type="submit" onclick="searchOne()">
+        </form>
+
+        <script>
+            const UsersService = require('./../../services/usersService.js');
+            const service = new UsersService();
+
+            function searchOne(){
+                const input = document.getElementById('idSearch');
+                const form = document.getElementById('form1');
+                form.action = `http://localhost:3000/api/users/${input.value}`;
+            }
+        </script>
     </body>
 </html>

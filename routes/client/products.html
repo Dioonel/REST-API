@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-    <html lang="en">
+<html lang="en">
     <head>
         <style>
             .thing{
@@ -7,14 +7,29 @@
             }
         </style>
         <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Products</title>
     </head>
     <body>
         <div class="thing">
             <h1> Products Webpage </h1>
-            <h2> WIP </h2>
         </div>
+
+        <br/><a href="http://localhost:3000/api/products">Go to products API</a><br/><br/><br/>
+
+        <form action="" id="form1">
+            <label> Search item by ID: </label> <input id="idSearch"> <input type="submit" onclick="searchOne()">
+        </form>
+
+        <script>
+            const ProductsService = require('./../../services/productsService.js');
+            const service = new ProductsService();
+
+            function searchOne(){
+                const input = document.getElementById('idSearch');
+                const form = document.getElementById('form1');
+                form.action = `http://localhost:3000/api/products/${input.value}`;
+            }
+        </script>
     </body>
 </html>
