@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/public/styles.css">
+        <title>Users</title>
+    </head>
+    <body>
+        <div class="thing">
+            <h1> Users Webpage </h1>
+        </div>
+
+        <br/><a href="http://localhost:3000/api/users">Go to users API</a><br/><br/><br/>
+
+        <form action="" id="form1">
+            <label> Search user by ID: </label> <input id="idSearch" required> <input type="submit" onclick="searchOne()">
+        </form>
+
+        <br/><br/>
+
+        <form onsubmit="return false" id="form2">
+            <h1> Create an user </h1>
+            <input type="text" id="userFirstName" placeholder="First name..." required/> <input type="text" id="userLastName" placeholder="Last name..." required/>
+            <select id="userGender" required>
+                <option value="" disabled hidden selected>Gender...</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select>
+            <br/>
+            <input type="text" id="userJobArea" placeholder="Job area..."> <input type="tel" id="userContact" placeholder="Phone number...">
+            <input type="submit">
+        </form>
+
+        <script src="/public/scriptUsers.js"></script>
+    </body>
+</html>

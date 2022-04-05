@@ -1,5 +1,4 @@
 const express = require('express');
-const faker = require('faker');
 const UsersService = require('../services/usersService');
 
 const service = new UsersService();
@@ -22,7 +21,6 @@ router.post('/', (req, res) => {                                                
         data: body,
     });
 });
-
 
 router.get('/:id', (req, res) => {                                                   // GET a user
     const id = req.params.id;

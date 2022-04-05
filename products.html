@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/public/styles.css">
+        <title>Products</title>
+    </head>
+    <body>
+        <div class="thing">
+            <h1> Products Webpage </h1>
+        </div>
+
+        <br/><a href="http://localhost:3000/api/products">Go to products API</a><br/><br/><br/>
+
+        <form action="" id="form1">
+            <label> Search item by ID: </label> <input id="idSearch" required> <input type="submit" onclick="searchOne()">
+        </form>
+
+        <br/><br/>
+
+        <form onsubmit="return false" id="form2">
+            <h1> Create an item owo </h1>
+            <input id="createName" placeholder="Item name..." required> <input type="number" id="createPrice" placeholder="Set a price..." required>
+            <input id="createImage" placeholder="Image URL..."> <input type="submit")>
+        </form>
+
+        <script src="/public/scriptProducts.js"></script>
+    </body>
+</html>
