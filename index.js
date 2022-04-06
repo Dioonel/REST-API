@@ -1,5 +1,6 @@
 const express = require('express');
 const routerAPI = require('./routes/index');
+const { logErrors, errorHandler, boomErrorHandler } = require('./middlewares/errorHandler');
 //const bodyParser = require('body-parser');
 
 const app = express();
@@ -15,5 +16,9 @@ app.get('/', (req, res) => {
 });
 
 routerAPI(app);
+
+app.use(logErrors);                                          // These middlewares MUST be after routerAPI(api)
+app.use(boomErrorHandler);
+app.use(errorHandler);
 
 app.listen(port, () => {console.log(`Listening port: ${port}`)});

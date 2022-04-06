@@ -8,24 +8,36 @@ const router = express.Router();
 //    res.sendFile(__dirname + '/client/users.html');
 //});
 
-router.get('/', (req, res) => {                                                         // GET all users
-    const users = service.find();
-    res.json(users);
+router.get('/', (req, res, next) => {                                                         // GET all users
+    try {
+        const users = service.find();
+        res.json(users);
+    } catch(err){
+        next(err)
+    }
 });
 
-router.post('/', (req, res) => {                                                        // POST (create a user)
-    let body = req.body;
-    body = service.create(body);
-    res.status(201).json({
-        message: 'Created!',
-        data: body,
-    });
+router.post('/', (req, res, next) => {                                                        // POST (create a user)
+    try {
+        let body = req.body;
+        body = service.create(body);
+        res.status(201).json({
+            message: 'Created!',
+            data: body,
+        });
+    } catch(err){
+        next(err)
+    }
 });
 
-router.get('/:id', (req, res) => {                                                   // GET a user
-    const id = req.params.id;
-    const user = service.findOne(id);
-    res.json(user);
+router.get('/:id', (req, res, next) => {                                                   // GET a user
+    try {
+        const id = req.params.id;
+        const user = service.findOne(id);
+        res.json(user);
+    } catch(err){
+        next(err)
+    }
 });
 
 
@@ -40,12 +52,16 @@ router.patch('/:id', (req, res) => {                                            
 });
 
 
-router.delete('/:id', (req, res) => {                                                  // DELETE a user
-    let id = req.params.id;
-    id = service.delete(id);
-    res.json({
-        message: id,
-    });
+router.delete('/:id', (req, res, next) => {                                                  // DELETE a user
+    try {
+        let id = req.params.id;
+        id = service.delete(id);
+        res.json({
+            message: id,
+        });
+    } catch(err){
+        next(err)
+    }
 });
 
 

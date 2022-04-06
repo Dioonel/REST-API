@@ -1,4 +1,5 @@
 const faker = require('faker');
+const boom = require('@hapi/boom');
 
 class ProductsService {
 
@@ -15,31 +16,56 @@ class ProductsService {
                 price: faker.commerce.price(),
                 image: faker.image.imageUrl(),
                 id: faker.datatype.uuid(),
-            })
+            });
         }
     }
 
     create(product){
-        this.products.push(product);
-        return product;
+        try {
+            this.products.push(product);
+            return product;
+        } catch (err){
+            throw boom.conflict('Please, try again later.');
+        }
+        
     }
 
     find(){
-        return this.products;
+        try {
+            return this.products;
+        }
+        catch (err) {
+            throw boom.conflict('Please, try again later.');
+        }
     }
 
     findOne(id){
-        return this.products.find((item) => item.id == id);
+        let item = this.products.find((item) => item.id == id);
+        if (item){
+            return item;
+        }
+        throw boom.notFound('Item not found.');
     }
 
     delete(id){
-        for(let i = 0; i < this.products.length; i++){
-            if(this.products[i].id == id){
-                this.products.splice(i, 1);
-                return `Item deleted! ~=~=~=~=~ ID: ${id}`;
-            }
+        const index = this.products.findIndex((item) => item.id == id);
+        if (index == -1){
+            throw boom.notFound('Item not found.');
         }
-        return `Item not found.`;
+        try{
+            this.products.splice(index, 1);
+            return {message: 'Item deleted!', id: id};
+        } catch (err) {
+            throw boom.conflict('There was an error while deleting.');
+        }
+        
+        // for(let i = 0; i < this.products.length; i++){
+        //     if(this.products[i].id == id){
+        //         this.products.splice(i, 1);
+        //         return `Item deleted! ~=~=~=~=~ ID: ${id}`;
+        //     }
+        // }
+        
     }
 }
 

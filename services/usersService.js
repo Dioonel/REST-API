@@ -1,4 +1,5 @@
 const faker = require('faker');
+const boom = require('@hapi/boom');
 
 class UsersService {
 
@@ -22,27 +23,51 @@ class UsersService {
     }
 
     create(user){
-        this.users.push(user);
-        return user;
+        try {
+            this.users.push(user);
+            return user;
+        } catch (err) {
+            throw boom.conflict('Please, try again later.');
+        }       
     }
 
     find(){
-        return this.users;
+        try {
+            return this.users;
+        } catch (err) {
+            throw boom.conflict('Please, try again later.');
+        }    
     }
 
     findOne(id){
-        return this.users.find((person) => person.id == id);
+        let user = this.users.find((person) => person.id == id);
+        if (user){
+            return user;
+        }
+        throw boom.notFound('User not found.');
     }
 
     delete(id){
-        for (let i = 0; i < this.users.length; i++){
-            if(this.users[i].id == id){
-                this.users.splice(i, 1);
-                return `User deleted! ~=~=~=~=~ ID: ${id}`;
-            }
+        const index = this.users.findIndex((person) => person.id == id);
+        if (index == -1){
+            throw boom.notFound('User not found.');
         }
-        return `User not found.`
+        try{
+            this.users.splice(index, 1);
+            return {message: 'User deleted!', id: id};
+        } catch (err) {
+            throw boom.conflict('There was an error while deleting.');
+        }
     }
+
+    //     for (let i = 0; i < this.users.length; i++){
+    //         if(this.users[i].id == id){
+    //             this.users.splice(i, 1);
+    //             return `User deleted! ~=~=~=~=~ ID: ${id}`;
+    //         }
+    //     }
+    //     return `User not found.`
+    // }
 }
 
 module.exports = UsersService;
