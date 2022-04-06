@@ -47,6 +47,19 @@ class UsersService {
         throw boom.notFound('User not found.');
     }
 
+    update(id, patch){
+        const index = this.users.findIndex((person) => person.id == id);
+        if (index == -1){
+            throw boom.notFound('User not found');
+        }
+        const person = this.users[index];
+        this.users[index] = {
+            ...person,
+            ...patch,
+        };
+        return this.users[index];
+    }
+
     delete(id){
         const index = this.users.findIndex((person) => person.id == id);
         if (index == -1){

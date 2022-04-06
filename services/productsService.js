@@ -47,6 +47,19 @@ class ProductsService {
         throw boom.notFound('Item not found.');
     }
 
+    update(id, patch){
+        const index = this.products.findIndex((item) => item.id == id);
+        if (index == -1){
+            throw boom.notFound('Item not found.');
+        }
+        const item = this.products[index];
+        this.products[index] = {
+            ...item,
+            ...patch,
+        };
+        return this.products[index];
+    }
+
     delete(id){
         const index = this.products.findIndex((item) => item.id == id);
         if (index == -1){

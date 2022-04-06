@@ -17,7 +17,7 @@ router.get('/', (req, res, next) => {                                           
     }
 });
 
-router.post('/', (req, res, next) => {                                                        // POST (create a user)
+router.post('/', (req, res, next) => {                                                        // POST (create an user)
     try {
         let body = req.body;
         body = service.create(body);
@@ -30,7 +30,7 @@ router.post('/', (req, res, next) => {                                          
     }
 });
 
-router.get('/:id', (req, res, next) => {                                                   // GET a user
+router.get('/:id', (req, res, next) => {                                                   // GET an user
     try {
         const id = req.params.id;
         const user = service.findOne(id);
@@ -41,18 +41,22 @@ router.get('/:id', (req, res, next) => {                                        
 });
 
 
-router.patch('/:id', (req, res) => {                                                   // PATCH (not supported rn)
-    const id = req.params.id;
-    let body = req.body;
-    res.json({
-        message: 'Updated!',
-        data: body,
-        id,
-    });
+router.patch('/:id', (req, res) => {                                                     // PATCH, update an user
+    try {
+        const id = req.params.id;
+        const body = req.body;
+        const user = service.update(id, body);
+        res.json({
+            message: 'Updated!',
+            data: user,
+        });
+    } catch(err){
+        next(err);
+    }
 });
 
 
-router.delete('/:id', (req, res, next) => {                                                  // DELETE a user
+router.delete('/:id', (req, res, next) => {                                                  // DELETE an user
     try {
         let id = req.params.id;
         id = service.delete(id);

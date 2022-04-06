@@ -40,14 +40,18 @@ router.get('/:id', (req, res, next) => {                                        
     }
 });
 
-router.patch('/:id', (req, res) => {                                                 // PATCH (not supported rn)
-    const body = req.body;
-    const id = req.params.id;
-    res.json({
-        message: 'Updated!',
-        data: body,
-        id: id,
-    });
+router.patch('/:id', (req, res) => {                                                     // PATCH, edit an item
+    try {
+        const body = req.body;
+        const id = req.params.id;
+        const item = service.update(id, body);
+        res.json({
+            message: 'Updated!',
+            data: item,
+        });
+    } catch (err){
+        next(err);
+    }
 });
 
 
