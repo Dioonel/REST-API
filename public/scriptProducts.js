@@ -30,6 +30,38 @@ async function deleteOne(){
     console.log(response);
 }
 
+async function updateOne(){
+    const id = document.getElementById('idUpdate').value;
+
+    const name = document.getElementById('updateName').value;
+    const price = document.getElementById('updatePrice').value;
+    const image = document.getElementById('updateImage').value;
+
+    let obj = {};
+
+    if (name != ""){                                                            // I know, this is trash
+        obj = {
+            ...obj,
+            name: name,
+        }
+    }
+    if (price != ""){
+        obj = {
+            ...obj,
+            price: price,
+        }
+    }
+    if (image != ""){
+        obj = {
+            ...obj,
+            image: image,
+        }
+    }
+
+    obj = JSON.stringify(obj);
+    const response = await doUpdate(`http://localhost:3000/api/products/${id}`, obj);
+    console.log(response);
+}
 
 async function doPost(url, ob){
     const response = await fetch(url, {
@@ -46,6 +78,17 @@ async function doDelete(url){
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json'}
+    });
+    return response.json();
+}
+
+async function doUpdate(url, ob){
+    const response = await fetch(url, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: ob
     });
     return response.json();
 }

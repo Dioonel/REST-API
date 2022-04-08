@@ -40,6 +40,22 @@
             <input id="idDelete" required placeholder="User ID..."> <input type="submit" onclick="deleteOne()">
         </form>
 
+        <br/><br/>
+
+        <form onsubmit="return false" id="form4">
+            <h1> Update an user owo </h1> <span class="note"> (There's no need to re-write all the data, just fill up the ones you want to change) </span> <br/><br/>
+            <label> User you want to update: </label> <input id="idUpdate" required placeholder="User ID..."> <br/>
+            <input id="updateFirstName" placeholder="New first name..."> <input id="updateLastName" placeholder="New last name...">
+            <select id="updateGender">
+                <option value="" disabled hidden selected>Gender...</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select> <br/>
+            <input id="updateJobArea" placeholder="New job area..."> <input type="tel" id="updateContact" placeholder="New phone number...">
+            <input type="submit" onclick="updateOne()">
+        </form>
+
         <script src="/public/scriptUsers.js"></script>
     </body>
 </html>

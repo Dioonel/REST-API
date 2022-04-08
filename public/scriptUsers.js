@@ -31,6 +31,52 @@ async function deleteOne(){
     console.log(response);
 }
 
+async function updateOne(){
+    const id = document.getElementById('idUpdate').value;
+
+    const first_name = document.getElementById('updateFirstName').value;
+    const last_name = document.getElementById('updateLastName').value;
+    const gender = document.getElementById('updateGender').value;
+    const job_area = document.getElementById('updateJobArea').value;
+    const contact = document.getElementById('updateContact').value;
+
+    let obj = {};
+
+    if (first_name != ""){                                                            // I know, this is trash
+        obj = {
+            ...obj,
+            first_name: first_name,
+        }
+    }
+    if (last_name != ""){
+        obj = {
+            ...obj,
+            last_name: last_name,
+        }
+    }
+    if (gender != ""){
+        obj = {
+            ...obj,
+            gender: gender,
+        }
+    }
+    if (job_area != ""){
+        obj = {
+            ...obj,
+            job_area: job_area,
+        }
+    }
+    if (contact != ""){
+        obj = {
+            ...obj,
+            contact: contact,
+        }
+    }
+
+    obj = JSON.stringify(obj);
+    const response = await doUpdate(`http://localhost:3000/api/users/${id}`, obj);
+    console.log(response);
+}
 
 async function doPost(url, ob){
     const response = await fetch(url, {
@@ -46,6 +92,17 @@ async function doDelete(url){
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json'}
+    });
+    return response.json();
+}
+
+async function doUpdate(url, ob){
+    const response = await fetch(url, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: ob
     });
     return response.json();
 }

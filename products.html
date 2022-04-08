@@ -33,6 +33,15 @@
             <input id="idDelete" required placeholder="Product ID..."> <input type="submit" onclick="deleteOne()">
         </form>
 
+        <br/><br/>
+
+        <form onsubmit="return false" id="form4">
+            <h1> Update an item owo </h1> <span class="note"> (There's no need to re-write all the data, just fill up the ones you want to change) </span> <br/><br/>
+            <label> Item you want to update: </label> <input id="idUpdate" required placeholder="Product ID..."> <br/>
+            <input id="updateName" placeholder="New item name..."> <input type="number" id="updatePrice" placeholder="New price..."> <input id="updateImage" placeholder="New image URL...">
+            <input type="submit" onclick="updateOne()">
+        </form>
+
         <script src="/public/scriptProducts.js"></script>
     </body>
 </html>
