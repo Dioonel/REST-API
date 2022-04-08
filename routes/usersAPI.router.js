@@ -41,7 +41,7 @@ router.get('/:id', (req, res, next) => {                                        
 });
 
 
-router.patch('/:id', (req, res) => {                                                     // PATCH, update an user
+router.patch('/:id', (req, res, next) => {                                                     // PATCH, update an user
     try {
         const id = req.params.id;
         const body = req.body;

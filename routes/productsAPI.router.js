@@ -40,7 +40,7 @@ router.get('/:id', (req, res, next) => {                                        
     }
 });
 
-router.patch('/:id', (req, res) => {                                                     // PATCH, edit an item
+router.patch('/:id', (req, res, next) => {                                                     // PATCH, edit an item
     try {
         const body = req.body;
         const id = req.params.id;
