@@ -21,16 +21,33 @@ async function createUser(){
     };
 
     obj = JSON.stringify(obj);
-    const res = await doPost('http://localhost:3000/api/users', obj);
-    console.log('OWO');
+    const response = await doPost('http://localhost:3000/api/users', obj);
+    console.log(response);
+}
+
+async function deleteOne(){
+    const input = document.getElementById('idDelete').value;
+    const response = await doDelete(`http://localhost:3000/api/users/${input}`);
+    console.log(response);
 }
 
 
 async function doPost(url, ob){
-    await fetch(url, {
+    const response = await fetch(url, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'},
         body: ob});
+        return response.json();
 }
+
+async function doDelete(url){
+    const response = await fetch(url, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'}
+    });
+    return response.json();
+}
+
 

@@ -14,13 +14,13 @@
         <br/><a href="http://localhost:3000/api/users">Go to users API</a><br/><br/><br/>
 
         <form action="" id="form1">
-            <label> Search user by ID: </label> <input id="idSearch" required> <input type="submit" onclick="searchOne()">
+            <label> Search user by ID: </label> <input id="idSearch" required placeholder="User ID..."> <input type="submit" onclick="searchOne()">
         </form>
 
         <br/><br/>
 
         <form onsubmit="return false" id="form2">
-            <h1> Create an user </h1>
+            <h1> Create an user owo </h1>
             <input type="text" id="userFirstName" placeholder="First name..." required/> <input type="text" id="userLastName" placeholder="Last name..." required/>
             <select id="userGender" required>
                 <option value="" disabled hidden selected>Gender...</option>
@@ -31,6 +31,13 @@
             <br/>
             <input type="text" id="userJobArea" placeholder="Job area..."> <input type="tel" id="userContact" placeholder="Phone number...">
             <input type="submit">
+        </form>
+
+        <br/><br/>
+
+        <form onsubmit="return false" id="form3">
+            <h1> Delete an user owo </h1>
+            <input id="idDelete" required placeholder="User ID..."> <input type="submit" onclick="deleteOne()">
         </form>
 
         <script src="/public/scriptUsers.js"></script>

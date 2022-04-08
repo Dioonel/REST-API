@@ -52,12 +52,16 @@ class ProductsService {
         if (index == -1){
             throw boom.notFound('Item not found.');
         }
-        const item = this.products[index];
-        this.products[index] = {
+        try {
+            const item = this.products[index];
+            this.products[index] = {
             ...item,
             ...patch,
         };
         return this.products[index];
+        } catch (err){
+            throw boom.badRequest('Invalid syntax.');
+        }
     }
 
     delete(id){

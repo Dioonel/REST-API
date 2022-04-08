@@ -14,7 +14,7 @@
         <br/><a href="http://localhost:3000/api/products">Go to products API</a><br/><br/><br/>
 
         <form action="" id="form1">
-            <label> Search item by ID: </label> <input id="idSearch" required> <input type="submit" onclick="searchOne()">
+            <label> Search item by ID: </label> <input id="idSearch" required placeholder="Product ID..."> <input type="submit" onclick="searchOne()">
         </form>
 
         <br/><br/>
@@ -23,6 +23,14 @@
             <h1> Create an item owo </h1>
             <input id="createName" placeholder="Item name..." required> <input type="number" id="createPrice" placeholder="Set a price..." required>
             <input id="createImage" placeholder="Image URL..."> <input type="submit")>
+        </form>
+
+
+        <br/><br/>
+
+        <form onsubmit="return false" id="form3">
+            <h1> Delete an item owo </h1>
+            <input id="idDelete" required placeholder="Product ID..."> <input type="submit" onclick="deleteOne()">
         </form>
 
         <script src="/public/scriptProducts.js"></script>
