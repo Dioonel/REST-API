@@ -34,42 +34,21 @@ async function deleteOne(){
 async function updateOne(){
     const id = document.getElementById('idUpdate').value;
 
-    const first_name = document.getElementById('updateFirstName').value;
-    const last_name = document.getElementById('updateLastName').value;
-    const gender = document.getElementById('updateGender').value;
-    const job_area = document.getElementById('updateJobArea').value;
-    const contact = document.getElementById('updateContact').value;
+    const first_name = {prop: 'first_name', value: document.getElementById('updateFirstName').value};
+    const last_name = {prop: 'last_name', value: document.getElementById('updateLastName').value};
+    const gender = {prop: 'gender', value: document.getElementById('updateGender').value};
+    const job_area = {prop: 'job_area', value: document.getElementById('updateJobArea').value};
+    const contact = {prop: 'contact', value: document.getElementById('updateContact').value};
 
     let obj = {};
+    let array = [first_name, last_name, gender, job_area, contact];
 
-    if (first_name != ""){                                                            // I know, this is trash
-        obj = {
-            ...obj,
-            first_name: first_name,
-        }
-    }
-    if (last_name != ""){
-        obj = {
-            ...obj,
-            last_name: last_name,
-        }
-    }
-    if (gender != ""){
-        obj = {
-            ...obj,
-            gender: gender,
-        }
-    }
-    if (job_area != ""){
-        obj = {
-            ...obj,
-            job_area: job_area,
-        }
-    }
-    if (contact != ""){
-        obj = {
-            ...obj,
-            contact: contact,
+    for (let b of array){
+        if(b.value != ""){
+            obj = {
+                ...obj,
+                [b.prop]: b.value,
+            }
         }
     }
 

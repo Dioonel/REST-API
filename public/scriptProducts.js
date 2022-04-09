@@ -33,30 +33,22 @@ async function deleteOne(){
 async function updateOne(){
     const id = document.getElementById('idUpdate').value;
 
-    const name = document.getElementById('updateName').value;
-    const price = document.getElementById('updatePrice').value;
-    const image = document.getElementById('updateImage').value;
+    const name = {prop: 'name', value: document.getElementById('updateName').value};
+    const price = {prop: 'price', value: document.getElementById('updatePrice').value};
+    const image = {prop: 'image', value: document.getElementById('updateImage').value};
 
     let obj = {};
+    let array = [name, price, image];
 
-    if (name != ""){                                                            // I know, this is trash
-        obj = {
-            ...obj,
-            name: name,
+    for (let b of array){
+        if(b.value != ""){
+            obj = {
+                ...obj,
+                [b.prop]: b.value,
+            }
         }
     }
-    if (price != ""){
-        obj = {
-            ...obj,
-            price: price,
-        }
-    }
-    if (image != ""){
-        obj = {
-            ...obj,
-            image: image,
-        }
-    }
+
 
     obj = JSON.stringify(obj);
     const response = await doUpdate(`http://localhost:3000/api/products/${id}`, obj);
