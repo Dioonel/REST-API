@@ -23,6 +23,9 @@ async function createUser(){
     obj = JSON.stringify(obj);
     const response = await doPost('http://localhost:3000/api/users', obj);
     console.log(response);
+
+    userDecorate(response);
+    formPost.reset();
 }
 
 async function deleteOne(){
@@ -86,4 +89,11 @@ async function doUpdate(url, ob){
     return response.json();
 }
 
-
+let userDecorate = (data) => {
+    let span1 = document.querySelector('.postMsg');
+    let span2 = document.querySelector('.showRes');
+    span1.innerHTML = `<strong>User created!</strong>`;
+    span1.style.display = 'inline';
+    span2.innerHTML = `Welcome <strong>${data.data.first_name} ${data.data.last_name}</strong>!`;
+    span2.style.display = 'inline';
+}

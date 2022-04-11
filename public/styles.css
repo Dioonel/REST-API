@@ -17,3 +17,18 @@ select {
     font-size: 16px;
     font-style:italic;
 }
+
+.postMsg{
+    color: rgb(0, 255, 0);
+    opacity: 0.6;
+    padding: 8px;
+    background-color: rgb(0, 92, 0);
+    display: none;
+}
+
+.showRes{
+    padding: 8px;
+    opacity: 0.6;
+    background-color: rgb(182, 182, 182);
+    display: none;
+}

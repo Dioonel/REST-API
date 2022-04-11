@@ -22,6 +22,9 @@ async function createItem(){
     obj = JSON.stringify(obj);
     const response = await doPost('http://localhost:3000/api/products', obj);
     console.log(response);
+
+    itemDecorate(response);
+    formPost.reset();
 }
 
 async function deleteOne(){
@@ -83,4 +86,13 @@ async function doUpdate(url, ob){
         body: ob
     });
     return response.json();
+}
+
+let itemDecorate = (data) => {
+    let span1 = document.querySelector('.postMsg');
+    let span2 = document.querySelector('.showRes');
+    span1.innerHTML = `<strong>Item created!</strong>`;
+    span1.style.display = 'inline';
+    span2.innerHTML = `<strong>Item:</strong> <i>${data.data.name}</i>  -  <strong>Price:</strong> <i>${data.data.price}</i>  -  <strong>ImageURL:</strong> <i>${data.data.image}</i>  -  <strong>ID:</strong> <i>${data.data.id}</i>`;
+    span2.style.display = 'inline';
 }
