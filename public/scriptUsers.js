@@ -1,6 +1,8 @@
 const formPost = document.getElementById('form2');
 formPost.addEventListener('submit', createUser);
 
+const formDelete = document.getElementById('form3');
+formDelete.addEventListener('submit', deleteOne);
 
 function searchOne(){
     const input = document.getElementById('idSearch');
@@ -32,6 +34,9 @@ async function deleteOne(){
     const input = document.getElementById('idDelete').value;
     const response = await doDelete(`http://localhost:3000/api/users/${input}`);
     console.log(response);
+
+    formDelete.reset();
+    deleteMsg(response);
 }
 
 async function updateOne(){
@@ -96,4 +101,10 @@ let userDecorate = (data) => {
     span1.style.display = 'inline';
     span2.innerHTML = `Welcome <strong>${data.data.first_name} ${data.data.last_name}</strong>!`;
     span2.style.display = 'inline';
+}
+
+let deleteMsg = (data) => {
+    let span = document.querySelector('.delMsg');
+    span.innerHTML = `<strong>${data.message.message}</strong>`;
+    span.style.display = 'inline';
 }

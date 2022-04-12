@@ -1,6 +1,9 @@
 const formPost = document.getElementById('form2');
 formPost.addEventListener('submit', createItem);
 
+const formDelete = document.getElementById('form3');
+formDelete.addEventListener('submit', deleteOne);
+
 
 function searchOne(){
     const input = document.getElementById('idSearch').value;
@@ -31,6 +34,9 @@ async function deleteOne(){
     const input = document.getElementById('idDelete').value;
     const response = await doDelete(`http://localhost:3000/api/products/${input}`);
     console.log(response);
+
+    deleteMsg(response);
+    formDelete.reset();
 }
 
 async function updateOne(){
@@ -95,4 +101,10 @@ let itemDecorate = (data) => {
     span1.style.display = 'inline';
     span2.innerHTML = `<strong>Item:</strong> <i>${data.data.name}</i>  -  <strong>Price:</strong> <i>${data.data.price}</i>  -  <strong>ImageURL:</strong> <i>${data.data.image}</i>  -  <strong>ID:</strong> <i>${data.data.id}</i>`;
     span2.style.display = 'inline';
+}
+
+let deleteMsg = (data) => {
+    let span = document.querySelector('.delMsg');
+    span.innerHTML = `<strong>${data.message.message}</strong>`;
+    span.style.display = 'inline';
 }
