@@ -50,7 +50,7 @@ class UsersService {
     update(id, patch){
         const index = this.users.findIndex((person) => person.id == id);
         if (index == -1){
-            throw boom.notFound('User not found');
+            throw boom.notFound('User not found.');
         }
         const person = this.users[index];
         this.users[index] = {
@@ -67,7 +67,7 @@ class UsersService {
         }
         try{
             this.users.splice(index, 1);
-            return {message: 'User deleted!', id: id};
+            return id;
         } catch (err) {
             throw boom.conflict('There was an error while deleting.');
         }

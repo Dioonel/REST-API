@@ -71,7 +71,7 @@ class ProductsService {
         }
         try{
             this.products.splice(index, 1);
-            return {message: 'Item deleted!', id: id};
+            return id;
         } catch (err) {
             throw boom.conflict('There was an error while deleting.');
         }

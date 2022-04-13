@@ -4,6 +4,9 @@ formPost.addEventListener('submit', createUser);
 const formDelete = document.getElementById('form3');
 formDelete.addEventListener('submit', deleteOne);
 
+const formUpdate = document.getElementById('form4');
+formUpdate.addEventListener('submit', updateOne);
+
 function searchOne(){
     const input = document.getElementById('idSearch');
     const form = document.getElementById('form1');
@@ -63,6 +66,9 @@ async function updateOne(){
     obj = JSON.stringify(obj);
     const response = await doUpdate(`http://localhost:3000/api/users/${id}`, obj);
     console.log(response);
+
+    updateMsg(response);
+    formUpdate.reset();
 }
 
 async function doPost(url, ob){
@@ -97,7 +103,7 @@ async function doUpdate(url, ob){
 let userDecorate = (data) => {
     let span1 = document.querySelector('.postMsg');
     let span2 = document.querySelector('.showRes');
-    span1.innerHTML = `<strong>User created!</strong>`;
+    span1.innerHTML = `<strong>${data.message}</strong>`;
     span1.style.display = 'inline';
     span2.innerHTML = `Welcome <strong>${data.data.first_name} ${data.data.last_name}</strong>!`;
     span2.style.display = 'inline';
@@ -105,6 +111,12 @@ let userDecorate = (data) => {
 
 let deleteMsg = (data) => {
     let span = document.querySelector('.delMsg');
-    span.innerHTML = `<strong>${data.message.message}</strong>`;
+    span.innerHTML = `<strong>${data.message}</strong>`;
+    span.style.display = 'inline';
+}
+
+let updateMsg = (data) => {
+    let span = document.querySelector('.updMsg');
+    span.innerHTML = `<strong>${data.message}</strong>`;
     span.style.display = 'inline';
 }

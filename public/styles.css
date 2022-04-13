@@ -39,3 +39,10 @@ select {
     background-color: rgb(255, 188, 63);
     display: none;
 }
+
+.updMsg{
+    padding: 8px;
+    opacity: 0.6;
+    background-color: rgb(76, 195, 228);
+    display: none;
+}

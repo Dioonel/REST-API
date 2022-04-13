@@ -22,7 +22,7 @@ router.post('/', (req, res, next) => {                                          
         let body = req.body;
         body = service.create(body);
         res.status(201).json({
-            message: 'Created!',
+            message: 'User created!',
             data: body,
         });
     } catch(err){
@@ -47,7 +47,7 @@ router.patch('/:id', (req, res, next) => {                                      
         const body = req.body;
         const user = service.update(id, body);
         res.json({
-            message: 'Updated!',
+            message: 'User updated!',
             data: user,
         });
     } catch(err){
@@ -61,7 +61,8 @@ router.delete('/:id', (req, res, next) => {                                     
         let id = req.params.id;
         id = service.delete(id);
         res.json({
-            message: id,
+            message: 'User deleted.',
+            id: id
         });
     } catch(err){
         next(err)
