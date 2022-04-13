@@ -7,11 +7,13 @@
         <title>Products</title>
     </head>
     <body>
-        <div class="thing">
+        <div class="mainTitle">
             <h1> Products Webpage </h1>
         </div>
 
-        <br/><a href="http://localhost:3000/api/products">Go to products API</a><br/><br/><br/>
+        <br/>
+        <a href="http://localhost:3000/api/products">Go to products API</a>
+        <br/><br/><br/>
 
         <form action="" id="form1">
             <label> Search item by ID: </label> <input id="idSearch" required placeholder="Product ID..."> <input type="submit" onclick="searchOne()">
@@ -20,25 +22,24 @@
         <br/><br/>
 
         <form onsubmit="return false" id="form2">
-            <h1> Create an item owo </h1>
-            <input id="createName" placeholder="Item name..." required> <input type="number" id="createPrice" placeholder="Set a price..." required>
-            <input id="createImage" placeholder="Image URL..."> <input type="submit"> <span class="postMsg"></span><span class="showRes"></span>
+            <h1> Create an item </h1>
+            <input id="namePost" placeholder="Item name..." required> <input type="number" id="pricePost" placeholder="Set a price..." required>
+            <input id="imagePost" placeholder="Image URL..."> <input type="submit"> <span class="postMsg"></span><span class="showRes"></span>
         </form>
-
 
         <br/><br/>
 
         <form onsubmit="return false" id="form3">
-            <h1> Delete an item owo </h1>
+            <h1> Delete an item </h1>
             <input id="idDelete" required placeholder="Product ID..."> <input type="submit"><span class="delMsg"></span>
         </form>
 
         <br/><br/>
 
         <form onsubmit="return false" id="form4">
-            <h1> Update an item owo </h1> <span class="note"> (There's no need to re-write all the data, just fill up the ones you want to change) </span> <br/><br/>
+            <h1> Update an item </h1> <span class="note"> (There's no need to re-write all the data, just fill up the ones you want to change) </span> <br/><br/>
             <label> Item you want to update: </label> <input id="idUpdate" required placeholder="Product ID..."> <br/>
-            <input id="updateName" placeholder="New item name..."> <input type="number" id="updatePrice" placeholder="New price..."> <input id="updateImage" placeholder="New image URL...">
+            <input id="nameUpdate" placeholder="New item name..."> <input type="number" id="priceUpdate" placeholder="New price..."> <input id="imageUpdate" placeholder="New image URL...">
             <input type="submit"><span class="updMsg">
         </form>
 

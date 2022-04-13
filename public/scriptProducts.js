@@ -18,9 +18,9 @@ async function createItem(){
     const id = 'WIP';
 
     let obj = {
-        name: document.getElementById('createName').value,
-        price: document.getElementById('createPrice').value + `.00`,
-        image: document.getElementById('createImage').value,
+        name: document.getElementById('namePost').value,
+        price: document.getElementById('pricePost').value,
+        image: document.getElementById('imagePost').value,
         id: id
     };
 
@@ -44,9 +44,9 @@ async function deleteOne(){
 async function updateOne(){
     const id = document.getElementById('idUpdate').value;
 
-    const name = {prop: 'name', value: document.getElementById('updateName').value};
-    const price = {prop: 'price', value: document.getElementById('updatePrice').value};
-    const image = {prop: 'image', value: document.getElementById('updateImage').value};
+    const name = {prop: 'name', value: document.getElementById('nameUpdate').value};
+    const price = {prop: 'price', value: document.getElementById('priceUpdate').value};
+    const image = {prop: 'image', value: document.getElementById('imageUpdate').value};
 
     let obj = {};
     let array = [name, price, image];

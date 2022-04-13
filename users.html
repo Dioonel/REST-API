@@ -7,11 +7,13 @@
         <title>Users</title>
     </head>
     <body>
-        <div class="thing">
+        <div class="mainTitle">
             <h1> Users Webpage </h1>
         </div>
 
-        <br/><a href="http://localhost:3000/api/users">Go to users API</a><br/><br/><br/>
+        <br/>
+        <a href="http://localhost:3000/api/users">Go to users API</a>
+        <br/><br/><br/>
 
         <form action="" id="form1">
             <label> Search user by ID: </label> <input id="idSearch" required placeholder="User ID..."> <input type="submit" onclick="searchOne()">
@@ -20,30 +22,30 @@
         <br/><br/>
 
         <form onsubmit="return false" id="form2">
-            <h1> Create an user owo </h1>
-            <input type="text" id="userFirstName" placeholder="First name..." required/> <input type="text" id="userLastName" placeholder="Last name..." required/>
-            <select id="userGender" required>
+            <h1> Create an user </h1>
+            <input type="text" id="fNamePost" placeholder="First name..." required/> <input type="text" id="lNamePost" placeholder="Last name..." required/>
+            <select id="genderPost" required>
                 <option value="" disabled hidden selected>Gender...</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="other">Other</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
             </select>
             <br/>
-            <input type="text" id="userJobArea" placeholder="Job area..."> <input type="tel" id="userContact" placeholder="Phone number...">
+            <input type="text" id="jobPost" placeholder="Job area..."> <input type="tel" id="contactPost" placeholder="Phone number...">
             <input type="submit"><span class="postMsg"></span><span class="showRes"></span>
         </form>
 
         <br/><br/>
 
         <form onsubmit="return false" id="form3">
-            <h1> Delete an user owo </h1>
+            <h1> Delete an user </h1>
             <input id="idDelete" required placeholder="User ID..."> <input type="submit"><span class="delMsg"></span>
         </form>
 
         <br/><br/>
 
         <form onsubmit="return false" id="form4">
-            <h1> Update an user owo </h1> <span class="note"> (There's no need to re-write all the data, just fill up the ones you want to change) </span> <br/><br/>
+            <h1> Update an user </h1> <span class="note"> (There's no need to re-write all the data, just fill up the ones you want to change) </span> <br/><br/>
             <label> User you want to update: </label> <input id="idUpdate" required placeholder="User ID..."> <br/>
             <input id="updateFirstName" placeholder="New first name..."> <input id="updateLastName" placeholder="New last name...">
             <select id="updateGender">

@@ -75,14 +75,6 @@ class ProductsService {
         } catch (err) {
             throw boom.conflict('There was an error while deleting.');
         }
-        
-        // for(let i = 0; i < this.products.length; i++){
-        //     if(this.products[i].id == id){
-        //         this.products.splice(i, 1);
-        //         return `Item deleted! ~=~=~=~=~ ID: ${id}`;
-        //     }
-        // }
-        
     }
 }
 

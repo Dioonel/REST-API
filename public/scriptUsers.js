@@ -17,11 +17,11 @@ async function createUser(){
     const id = 'WIP xd';
 
     let obj = {
-        first_name: document.getElementById('userFirstName').value,
-        last_name: document.getElementById('userLastName').value,
-        gender: document.getElementById('userGender').value,
-        job_area: document.getElementById('userJobArea').value,
-        contact: document.getElementById('userContact').value,
+        first_name: document.getElementById('fNamePost').value,
+        last_name: document.getElementById('lNamePost').value,
+        gender: document.getElementById('genderPost').value,
+        job_area: document.getElementById('jobPost').value,
+        contact: document.getElementById('contactPost').value,
         id: id
     };
 

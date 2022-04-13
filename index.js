@@ -1,15 +1,12 @@
 const express = require('express');
 const routerAPI = require('./routes/index');
 const { logErrors, errorHandler, boomErrorHandler } = require('./middlewares/errorHandler');
-//const bodyParser = require('body-parser');
 
 const app = express();
 const port = 3000;
 
-app.use(express.json());                                      // Esta linea es un middleware, permite que POST funcione
+app.use(express.json());                                      // This middleware lets you make POST requests
 app.use('/public', express.static('public'));
-//app.use(bodyParser.json());
-//app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
     res.sendFile('main.html', {root: './'});

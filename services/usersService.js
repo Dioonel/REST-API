@@ -72,15 +72,6 @@ class UsersService {
             throw boom.conflict('There was an error while deleting.');
         }
     }
-
-    //     for (let i = 0; i < this.users.length; i++){
-    //         if(this.users[i].id == id){
-    //             this.users.splice(i, 1);
-    //             return `User deleted! ~=~=~=~=~ ID: ${id}`;
-    //         }
-    //     }
-    //     return `User not found.`
-    // }
 }
 
 module.exports = UsersService;
