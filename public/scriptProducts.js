@@ -1,18 +1,21 @@
+////////////////////////////////////////////////////////
 const formPost = document.getElementById('form2');
 formPost.addEventListener('submit', createItem);
-
+////////////////////////////////////////////////////////
 const formDelete = document.getElementById('form3');
 formDelete.addEventListener('submit', deleteOne);
-
+////////////////////////////////////////////////////////
 const formUpdate = document.getElementById('form4');
 formUpdate.addEventListener('submit', updateOne);
+////////////////////////////////////////////////////////
+
+const URL = `http://localhost:3000/api/products`;
 
 function searchOne(){
-    const input = document.getElementById('idSearch').value;
+    const id = document.getElementById('idSearch').value;
     const form = document.getElementById('form1');
-    form.action = `http://localhost:3000/api/products/${input}`;
+    form.action = `${URL}/${id}`;
 }
-
 
 async function createItem(){
     const id = 'WIP';
@@ -25,18 +28,16 @@ async function createItem(){
     };
 
     obj = JSON.stringify(obj);
-    const response = await doPost('http://localhost:3000/api/products', obj);
-    console.log(response);
 
-    itemDecorate(response);
+    const response = await doPost(URL, obj);
+    postMsg(response);
     formPost.reset();
 }
 
 async function deleteOne(){
-    const input = document.getElementById('idDelete').value;
-    const response = await doDelete(`http://localhost:3000/api/products/${input}`);
-    console.log(response);
+    const id = document.getElementById('idDelete').value;
 
+    const response = await doDelete(`${URL}/${id}`);
     deleteMsg(response);
     formDelete.reset();
 }
@@ -60,11 +61,9 @@ async function updateOne(){
         }
     }
 
-
     obj = JSON.stringify(obj);
-    const response = await doUpdate(`http://localhost:3000/api/products/${id}`, obj);
-    console.log(response);
 
+    const response = await doUpdate(`${URL}/${id}`, obj);
     updateMsg(response);
     formUpdate.reset();
 }
@@ -99,7 +98,7 @@ async function doUpdate(url, ob){
     return response.json();
 }
 
-let itemDecorate = (data) => {
+let postMsg = (data) => {
     let span1 = document.querySelector('.postMsg');
     let span2 = document.querySelector('.showRes');
     span1.innerHTML = `<strong>${data.message}</strong>`;

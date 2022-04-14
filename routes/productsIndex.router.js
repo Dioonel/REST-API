@@ -6,5 +6,8 @@ router.get('/', (req, res) => {
     res.sendFile(path.resolve('./products.html'));
 });
 
+router.get('/:foo', (req, res) => {
+    res.status(404).send('Route not found.')
+});
 
 module.exports = router;

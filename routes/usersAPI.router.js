@@ -4,10 +4,6 @@ const UsersService = require('../services/usersService');
 const service = new UsersService();
 const router = express.Router();
 
-//router.get('/', (req, res) => {                                                       // HTML
-//    res.sendFile(__dirname + '/client/users.html');
-//});
-
 router.get('/', (req, res, next) => {                                                         // GET all users
     try {
         const users = service.find();
@@ -40,7 +36,6 @@ router.get('/:id', (req, res, next) => {                                        
     }
 });
 
-
 router.patch('/:id', (req, res, next) => {                                                     // PATCH, update an user
     try {
         const id = req.params.id;
@@ -54,7 +49,6 @@ router.patch('/:id', (req, res, next) => {                                      
         next(err);
     }
 });
-
 
 router.delete('/:id', (req, res, next) => {                                                  // DELETE an user
     try {

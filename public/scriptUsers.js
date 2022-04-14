@@ -1,20 +1,24 @@
+////////////////////////////////////////////////////////
 const formPost = document.getElementById('form2');
 formPost.addEventListener('submit', createUser);
-
+////////////////////////////////////////////////////////
 const formDelete = document.getElementById('form3');
 formDelete.addEventListener('submit', deleteOne);
-
+////////////////////////////////////////////////////////
 const formUpdate = document.getElementById('form4');
 formUpdate.addEventListener('submit', updateOne);
+////////////////////////////////////////////////////////
+
+const URL = `http://localhost:3000/api/users`;
 
 function searchOne(){
-    const input = document.getElementById('idSearch');
+    const id = document.getElementById('idSearch').value;
     const form = document.getElementById('form1');
-    form.action = `http://localhost:3000/api/users/${input.value}`;
+    form.action = `${URL}/${id}`;
 }
 
 async function createUser(){
-    const id = 'WIP xd';
+    const id = 'WIP';
 
     let obj = {
         first_name: document.getElementById('fNamePost').value,
@@ -26,18 +30,16 @@ async function createUser(){
     };
 
     obj = JSON.stringify(obj);
-    const response = await doPost('http://localhost:3000/api/users', obj);
-    console.log(response);
 
-    userDecorate(response);
+    const response = await doPost(URL, obj);
+    postMsg(response);
     formPost.reset();
 }
 
 async function deleteOne(){
-    const input = document.getElementById('idDelete').value;
-    const response = await doDelete(`http://localhost:3000/api/users/${input}`);
-    console.log(response);
+    const id = document.getElementById('idDelete').value;
 
+    const response = await doDelete(`${URL}/${id}`);
     formDelete.reset();
     deleteMsg(response);
 }
@@ -64,9 +66,8 @@ async function updateOne(){
     }
 
     obj = JSON.stringify(obj);
-    const response = await doUpdate(`http://localhost:3000/api/users/${id}`, obj);
-    console.log(response);
 
+    const response = await doUpdate(`${URL}/${id}`, obj);
     updateMsg(response);
     formUpdate.reset();
 }
@@ -100,7 +101,7 @@ async function doUpdate(url, ob){
     return response.json();
 }
 
-let userDecorate = (data) => {
+let postMsg = (data) => {
     let span1 = document.querySelector('.postMsg');
     let span2 = document.querySelector('.showRes');
     span1.innerHTML = `<strong>${data.message}</strong>`;

@@ -4,10 +4,6 @@ const ProductsService = require('../services/productsService');
 const service = new ProductsService();
 const router = express.Router();
 
-//router.get('/', (req, res) => {
-//    res.sendFile(__dirname + '/client/products.html');                               // HTML
-//});
-
 router.get('/', (req, res, next) => {                                                // GET all products
     try {
         const data = service.find();
