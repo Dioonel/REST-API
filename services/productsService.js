@@ -22,8 +22,12 @@ class ProductsService {
 
     create(product){
         try {
-            this.products.push(product);
-            return product;
+            const item = {
+                ...product,
+                id: faker.datatype.uuid(),
+                }
+            this.products.push(item);
+            return item;
         } catch (err){
             throw boom.conflict('Please, try again later.');
         }

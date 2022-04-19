@@ -24,8 +24,12 @@ class UsersService {
 
     create(user){
         try {
-            this.users.push(user);
-            return user;
+            const person = {
+                ...user,
+                id: faker.datatype.uuid(),
+            }
+            this.users.push(person);
+            return person;
         } catch (err) {
             throw boom.conflict('Please, try again later.');
         }       

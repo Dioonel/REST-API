@@ -9,7 +9,7 @@ const formUpdate = document.getElementById('form4');
 formUpdate.addEventListener('submit', updateOne);
 ////////////////////////////////////////////////////////
 
-const URL = `http://localhost:3000/api/products`;
+const URL = `http://localhost:8080/api/products`;
 
 function searchOne(){
     const id = document.getElementById('idSearch').value;
@@ -18,13 +18,10 @@ function searchOne(){
 }
 
 async function createItem(){
-    const id = 'WIP';
-
     let obj = {
         name: document.getElementById('namePost').value,
         price: document.getElementById('pricePost').value,
         image: document.getElementById('imagePost').value,
-        id: id
     };
 
     obj = JSON.stringify(obj);

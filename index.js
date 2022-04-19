@@ -3,10 +3,10 @@ const routerAPI = require('./routes/index');
 const { logErrors, errorHandler, boomErrorHandler } = require('./middlewares/errorHandler');
 
 const app = express();
-const port = 3000;
+const port = 8080;
 
 app.use(express.json());                                      // This middleware lets you make POST requests
-app.use('/public', express.static('public'));
+app.use('/public', express.static('public'));                 // This middleware lets public files work
 
 app.get('/', (req, res) => {
     res.sendFile('main.html', {root: './'});

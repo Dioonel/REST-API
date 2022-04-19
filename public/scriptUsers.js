@@ -9,7 +9,7 @@ const formUpdate = document.getElementById('form4');
 formUpdate.addEventListener('submit', updateOne);
 ////////////////////////////////////////////////////////
 
-const URL = `http://localhost:3000/api/users`;
+const URL = `http://localhost:8080/api/users`;
 
 function searchOne(){
     const id = document.getElementById('idSearch').value;
@@ -18,15 +18,12 @@ function searchOne(){
 }
 
 async function createUser(){
-    const id = 'WIP';
-
     let obj = {
         first_name: document.getElementById('fNamePost').value,
         last_name: document.getElementById('lNamePost').value,
         gender: document.getElementById('genderPost').value,
         job_area: document.getElementById('jobPost').value,
         contact: document.getElementById('contactPost').value,
-        id: id
     };
 
     obj = JSON.stringify(obj);
