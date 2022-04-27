@@ -1,5 +1,6 @@
+const boom = require('@hapi/boom');
 const express = require('express');
-const UsersService = require('../services/usersService');
+const UsersService = require('../services/users/usersService');
 
 const service = new UsersService();
 const router = express.Router();
@@ -30,7 +31,11 @@ router.get('/:id', async (req, res, next) => {                                  
     try {
         const id = req.params.id;
         const user = await service.findOne(id);
-        res.json(user);
+        if (user == null || user == undefined){
+            throw boom.notFound('User not found.');
+        } else {   
+            res.json(user);
+        }
     } catch(err){
         next(err)
     }
@@ -54,10 +59,14 @@ router.delete('/:id', async (req, res, next) => {                               
     try {
         let id = req.params.id;
         id = await service.delete(id);
-        res.json({
-            message: 'User deleted.',
-            id: id
-        });
+        if (id == null || id == undefined){
+            res.json({message: 'User not found.'});
+        } else {
+            res.json({
+                message: 'User deleted.',
+                id: id
+            });
+        }
     } catch(err){
         next(err)
     }

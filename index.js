@@ -24,4 +24,3 @@ app.use(boomErrorHandler);
 app.use(errorHandler);
 
 app.listen(port, () => {console.log(`Listening port: ${port}`)});
-console.log(process.env);

@@ -12,8 +12,7 @@ async function addUser(user){
 
 async function getUsers(){
     try{
-        const users = await Model.find();
-        return users;
+        return await Model.find();
     } catch (err){
         throw boom.internal('Internal error, please try again later');
     }

@@ -12,8 +12,7 @@ async function addItem(item){
 
 async function getItems(){
     try{
-        const items = await Model.find();
-        return items;
+        return await Model.find();
     } catch (err) {
         throw boom.internal('Internal error, please try again later');
     }

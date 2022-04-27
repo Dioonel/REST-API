@@ -5,13 +5,10 @@ class ProductsService {
 
     async create(product){
         if(!product){
-            throw boom.badRequest("Can't post empty data.")
+            throw boom.badRequest("Can't post empty data.");
         }
         try {
-            const item = {
-                ...product,
-                }
-            return await store.add(item);
+            return await store.add(product);
         } catch (err){
             throw boom.conflict('Please, try again later.');
         }   
@@ -27,8 +24,7 @@ class ProductsService {
 
     async findOne(id){
         try{
-            const item = await store.getOne(id);
-            return item;
+            return await store.getOne(id);
         } catch (err){
             throw boom.notFound('Item not found.');
         }

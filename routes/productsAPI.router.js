@@ -1,5 +1,6 @@
+const boom = require('@hapi/boom');
 const express = require('express');
-const ProductsService = require('../services/productsService');
+const ProductsService = require('../services/products/productsService');
 
 const service = new ProductsService();
 const router = express.Router();
@@ -16,7 +17,7 @@ router.get('/', async (req, res, next) => {                                     
 router.post('/', async (req, res, next) => {                                                     // POST (create a product)
     try {
         let body = req.body;
-        body = await service.create(body)
+        body = await service.create(body);
         res.status(201).json({
             message: 'Item created!',
             data: body,
@@ -30,7 +31,11 @@ router.get('/:id', async (req, res, next) => {                                  
     try {
         const id = req.params.id;
         const product = await service.findOne(id);
-        res.json(product);
+        if (product == null || product == undefined){
+            throw boom.notFound('Item not found.');
+        } else {       
+            res.json(product);
+        }
     } catch (err){
         next(err);
     }
@@ -50,15 +55,18 @@ router.patch('/:id', async (req, res, next) => {                                
     }
 });
 
-
 router.delete('/:id', async (req, res, next) => {                                                 // DELETE a product
     try {
         let id = req.params.id;
         id = await service.delete(id);
-        res.json({
-            message: 'Item deleted.',
-            id: id
-        });
+        if (id == null || id == undefined){
+            res.json({message: 'Item not found.'});
+        } else {
+            res.json({
+                message: 'Item deleted.',
+                id: id
+            });
+        }
     } catch (err){
         next(err);
     }

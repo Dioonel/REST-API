@@ -8,10 +8,7 @@ class UsersService {
             throw boom.badRequest("Can't post empty data.")
         }
         try {
-            const person = {
-                ...user,
-            }
-            return store.add(person);
+            return store.add(user);
         } catch (err) {
             throw boom.conflict('Please, try again later.');
         }       
@@ -27,8 +24,7 @@ class UsersService {
 
     async findOne(id){
         try {
-            const user = await store.getOne(id);
-            return user;
+            return await store.getOne(id);
         } catch(err){
             throw boom.notFound('User not found.');
         }
