@@ -20,7 +20,7 @@ function searchOne(){
 async function createItem(){
     let obj = {
         name: document.getElementById('namePost').value,
-        price: document.getElementById('pricePost').value,
+        price: parseInt(document.getElementById('pricePost').value),
         image: document.getElementById('imagePost').value,
     };
 
@@ -50,7 +50,7 @@ async function updateOne(){
     let array = [name, price, image];
 
     for (let b of array){
-        if(b.value != ""){
+        if(b.value != "" && b.value != null){
             obj = {
                 ...obj,
                 [b.prop]: b.value,
@@ -100,7 +100,7 @@ let postMsg = (data) => {
     let span2 = document.querySelector('.showRes');
     span1.innerHTML = `<strong>${data.message}</strong>`;
     span1.style.display = 'inline';
-    span2.innerHTML = `<strong>Item:</strong> <i>${data.data.name}</i>  -  <strong>Price:</strong> <i>${data.data.price}</i>  -  <strong>ImageURL:</strong> <i>${data.data.image}</i>  -  <strong>ID:</strong> <i>${data.data.id}</i>`;
+    span2.innerHTML = `<strong>Item:</strong> <i>${data.data.name}</i>  -  <strong>Price:</strong> <i>${data.data.price}</i>  -  <strong>ImageURL:</strong> <i>${data.data.image}</i>  -  <strong>ID:</strong> <i>${data.data._id}</i>`;
     span2.style.display = 'inline';
 }
 

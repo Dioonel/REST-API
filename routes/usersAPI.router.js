@@ -4,19 +4,19 @@ const UsersService = require('../services/usersService');
 const service = new UsersService();
 const router = express.Router();
 
-router.get('/', (req, res, next) => {                                                         // GET all users
+router.get('/', async (req, res, next) => {                                                         // GET all users
     try {
-        const users = service.find();
+        const users = await service.find();
         res.json(users);
     } catch(err){
         next(err)
     }
 });
 
-router.post('/', (req, res, next) => {                                                        // POST (create an user)
+router.post('/', async (req, res, next) => {                                                        // POST (create an user)
     try {
         let body = req.body;
-        body = service.create(body);
+        body = await service.create(body);
         res.status(201).json({
             message: 'User created!',
             data: body,
@@ -26,21 +26,21 @@ router.post('/', (req, res, next) => {                                          
     }
 });
 
-router.get('/:id', (req, res, next) => {                                                   // GET an user
+router.get('/:id', async (req, res, next) => {                                                   // GET an user
     try {
         const id = req.params.id;
-        const user = service.findOne(id);
+        const user = await service.findOne(id);
         res.json(user);
     } catch(err){
         next(err)
     }
 });
 
-router.patch('/:id', (req, res, next) => {                                                     // PATCH, update an user
+router.patch('/:id', async (req, res, next) => {                                                     // PATCH, update an user
     try {
         const id = req.params.id;
         const body = req.body;
-        const user = service.update(id, body);
+        const user = await service.update(id, body);
         res.json({
             message: 'User updated!',
             data: user,
@@ -50,10 +50,10 @@ router.patch('/:id', (req, res, next) => {                                      
     }
 });
 
-router.delete('/:id', (req, res, next) => {                                                  // DELETE an user
+router.delete('/:id', async (req, res, next) => {                                                  // DELETE an user
     try {
         let id = req.params.id;
-        id = service.delete(id);
+        id = await service.delete(id);
         res.json({
             message: 'User deleted.',
             id: id
