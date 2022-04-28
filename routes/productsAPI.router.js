@@ -1,22 +1,23 @@
+const boom = require('@hapi/boom');
 const express = require('express');
-const ProductsService = require('../services/productsService');
+const ProductsService = require('../services/products/productsService');
 
 const service = new ProductsService();
 const router = express.Router();
 
-router.get('/', (req, res, next) => {                                                // GET all products
+router.get('/', async (req, res, next) => {                                                // GET all products
     try {
-        const data = service.find();
+        const data = await service.find();
         res.json(data);
     } catch (err){
         next(err);
     }
 });
 
-router.post('/', (req, res, next) => {                                                     // POST (create a product)
+router.post('/', async (req, res, next) => {                                                     // POST (create a product)
     try {
         let body = req.body;
-        body = service.create(body)
+        body = await service.create(body);
         res.status(201).json({
             message: 'Item created!',
             data: body,
@@ -26,21 +27,25 @@ router.post('/', (req, res, next) => {                                          
     }
 });
 
-router.get('/:id', (req, res, next) => {                                                  // GET product by id
+router.get('/:id', async (req, res, next) => {                                                  // GET product by id
     try {
         const id = req.params.id;
-        const product = service.findOne(id);
-        res.json(product);
+        const product = await service.findOne(id);
+        if (product == null || product == undefined){
+            throw boom.notFound('Item not found.');
+        } else {       
+            res.json(product);
+        }
     } catch (err){
         next(err);
     }
 });
 
-router.patch('/:id', (req, res, next) => {                                                     // PATCH, edit an item
+router.patch('/:id', async (req, res, next) => {                                                     // PATCH, edit an item
     try {
         const body = req.body;
         const id = req.params.id;
-        const item = service.update(id, body);
+        const item = await service.update(id, body);
         res.json({
             message: 'Item updated!',
             data: item,
@@ -50,15 +55,18 @@ router.patch('/:id', (req, res, next) => {                                      
     }
 });
 
-
-router.delete('/:id', (req, res, next) => {                                                 // DELETE a product
+router.delete('/:id', async (req, res, next) => {                                                 // DELETE a product
     try {
         let id = req.params.id;
-        id = service.delete(id);
-        res.json({
-            message: 'Item deleted.',
-            id: id
-        });
+        id = await service.delete(id);
+        if (id == null || id == undefined){
+            res.json({message: 'Item not found.'});
+        } else {
+            res.json({
+                message: 'Item deleted.',
+                id: id
+            });
+        }
     } catch (err){
         next(err);
     }

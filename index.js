@@ -1,9 +1,14 @@
+const dotenv = require('dotenv').config();
 const express = require('express');
 const routerAPI = require('./routes/index');
 const { logErrors, errorHandler, boomErrorHandler } = require('./middlewares/errorHandler');
+const db = require('./db');
 
 const app = express();
 const port = 8080;
+
+db.Promise = global.Promise;
+db(process.env.DB_URI);
 
 app.use(express.json());                                      // This middleware lets you make POST requests
 app.use('/public', express.static('public'));                 // This middleware lets public files work

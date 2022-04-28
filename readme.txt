@@ -13,6 +13,16 @@ Available routes:
 'api/users/{id}'                                        GET (returns a specific user), DELETE (deletes a specific user)
 
 
-Some of these routes may only be accessible through API testing tools like Postman or Insomnia.
-
 Data required to POST or PATCH, must be sent in the body of the request.
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+IF THE DATABASE IS NOT AVAILABLE, TRY CREATING A FILE CALLED ".env" IN THE ACTUAL ROUTE, AND DEFINE THESE VARIABLES WITH YOUR OWN MONGO DATABASE INFO: 
+
+DB_URI="<your_mongo_db_uri>"
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
