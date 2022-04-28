@@ -8,7 +8,7 @@ const app = express();
 const port = 8080;
 
 db.Promise = global.Promise;
-db(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.1v9n9.mongodb.net/main_db?retryWrites=true&w=majority`);
+db(process.env.DB_URI);
 
 app.use(express.json());                                      // This middleware lets you make POST requests
 app.use('/public', express.static('public'));                 // This middleware lets public files work
