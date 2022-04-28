@@ -7,7 +7,11 @@ const router = express.Router();
 
 router.get('/', async (req, res, next) => {                                                // GET all products
     try {
-        const data = await service.find();
+        let filter = null;
+        if(req.query.name || req.query.price || req.query.quantity){
+            filter = req.query;
+        }
+        const data = await service.find(filter);
         res.json(data);
     } catch (err){
         next(err);
