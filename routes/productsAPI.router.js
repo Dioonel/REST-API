@@ -8,9 +8,7 @@ const router = express.Router();
 router.get('/', async (req, res, next) => {                                                // GET all products
     try {
         let filter = null;
-        console.log(req.originalUrl);
         if(req.query.name || req.query.min_price || req.query.max_price || req.query.quantity || req.query.image){
-            console.log('Query added');
             filter = req.query;
         }
         const data = await service.find(filter);
