@@ -20,6 +20,22 @@
             <label> Search item by ID: </label> <input id="idSearch" required placeholder="Product ID..."> <input type="submit" onclick="searchOne()">
         </form>
 
+        <br/>
+
+        <form onsubmit="return false">
+            <h1> Filters </h1>
+            <label> Name: </label> <input type="text" id="filterName" placeholder="Approximate item name..."> <br/>
+            <label> Price: </label> <input type="number" id="filterMinPrice" placeholder="Min price..."> <input type="number" id="filterMaxPrice" placeholder="Max price..."> <br/>
+            <label> How many items do you want to get? </label> <input type="number" id="filterQuantity" placeholder="Quantity..."> <br/>
+            <label> Image: </label> 
+            <select id="filterImage">
+                <option value="" selected>Default</option>
+                <option value="true">Image available</option>
+                <option value="false">No image available</option>
+            </select>
+            <input type="submit" value="Filter!" onclick="filterItems()">
+        </form>
+
         <br/><br/>
 
         <form onsubmit="return false" id="form2">

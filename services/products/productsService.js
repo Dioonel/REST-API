@@ -21,17 +21,24 @@ class ProductsService {
 
             if(filterInfo?.name){                                               // if(filterInfo && filterInfo.name) works too
                 data = _.filter(data, (item) => {return item.name.toLowerCase().includes(filterInfo.name.toLowerCase())});
-                console.log('Filter by name executed');
             }
 
-            if(filterInfo?.price){
-                if(filterInfo?.min_price){
-                    data = _.filter(data, (item) => {return item.price >= parseInt(filterInfo.min_price)});
-                    console.log('Filter by MIN price executed');
-                }
-                if(filterInfo?.max_price){
-                    data = _.filter(data, (item) => {return item.price <= parseInt(filterInfo.max_price)}); 
-                    console.log('Filter by MAX price executed');
+            if(filterInfo?.min_price){
+                data = _.filter(data, (item) => {return item.price >= parseInt(filterInfo.min_price)});
+            }
+            if(filterInfo?.max_price){
+                data = _.filter(data, (item) => {return item.price <= parseInt(filterInfo.max_price)}); 
+            }
+
+            if(filterInfo?.quantity){
+                data.splice(Math.abs(parseInt(filterInfo.quantity)));
+            }
+
+            if(filterInfo?.image){
+                if(filterInfo.image == 'false' || filterInfo.image == 'null' || filterInfo.image == 'undefined' || filterInfo.image == ''){
+                    data = _.filter(data, (item) => {return !item.image});
+                } else if(filterInfo.image == 'true'){
+                    data = _.filter(data, (item) => {return item.image});
                 }
             }
 
