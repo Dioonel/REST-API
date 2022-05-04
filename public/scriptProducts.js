@@ -23,7 +23,6 @@ function filterItems(){
         min_price: document.getElementById('filterMinPrice').value,
         max_price: document.getElementById('filterMaxPrice').value,
         quantity: document.getElementById('filterQuantity').value,
-        image: document.getElementById('filterImage').value,
     }
 
     location.href = filterURLMaker(data);                                 // If I try to use form.action, idk why but query will not be sent
