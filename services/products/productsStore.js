@@ -1,6 +1,8 @@
 const Model = require('./productModel');
 const boom = require('@hapi/boom');
 
+const MAX_INT = 2147483647;
+
 async function addItem(item){
     try{
         const myItem = new Model(item);
@@ -10,9 +12,16 @@ async function addItem(item){
     }
 }
 
-async function getItems(){
+async function getItems(filter){
     try{
-        return await Model.find();
+        if(filter){
+            return await Model.find({$and: [
+                {name: {$regex: filter.name || '', $exists: true, $options: 'i'}},
+                {price: {$gt: filter.min_price || 0, $lt: filter.max_price || MAX_INT}}]});
+        } else {
+            return await Model.find(null);
+        }
+        
     } catch (err) {
         throw boom.internal('Internal error, please try again later');
     }
