@@ -17,30 +17,26 @@ class ProductsService {
 
     async find(filterInfo){
         try {
-            let data = await store.get();
+            let filter = null;   
 
             if(filterInfo?.name){                                               // if(filterInfo && filterInfo.name) works too
-                data = _.filter(data, (item) => {return item.name.toLowerCase().includes(filterInfo.name.toLowerCase())});
+                filter = {...filter, name: filterInfo.name};
             }
 
             if(filterInfo?.min_price){
-                data = _.filter(data, (item) => {return item.price >= parseInt(filterInfo.min_price)});
+                filter = {...filter, min_price: filterInfo.min_price};
             }
             if(filterInfo?.max_price){
-                data = _.filter(data, (item) => {return item.price <= parseInt(filterInfo.max_price)}); 
+                filter = {...filter, max_price: filterInfo.max_price}; 
             }
 
-            if(filterInfo?.quantity){
-                data.splice(Math.abs(parseInt(filterInfo.quantity)));
+            if(parseInt(filterInfo?.quantity)){
+                filter = {...filter, quantity: parseInt(filterInfo.quantity)};
             }
 
-            if(filterInfo?.image){
-                if(filterInfo.image == 'false' || filterInfo.image == 'null' || filterInfo.image == 'undefined' || filterInfo.image == ''){
-                    data = _.filter(data, (item) => {return !item.image});
-                } else if(filterInfo.image == 'true'){
-                    data = _.filter(data, (item) => {return item.image});
-                }
-            }
+            console.log(filter);
+            let data = await store.get(filter);
+
 
             return data;
         } catch (err) {
