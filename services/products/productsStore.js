@@ -18,7 +18,8 @@ async function getItems(filter){
             return await Model.find({$and: [
                 {name: {$regex: filter.name || '', $exists: true, $options: 'i'}},
                 {price: {$gt: filter.min_price || 0, $lt: filter.max_price || MAX_INT}}]})
-                .limit(filter.quantity || null);
+                .limit(filter.quantity || null)
+                .sort({[filter.sortBy]: filter.sortWay || 1});
         } else {
             return await Model.find(null);
         }
