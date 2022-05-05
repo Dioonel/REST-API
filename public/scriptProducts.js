@@ -23,6 +23,8 @@ function filterItems(){
         min_price: document.getElementById('filterMinPrice').value,
         max_price: document.getElementById('filterMaxPrice').value,
         quantity: document.getElementById('filterQuantity').value,
+        sortBy: document.getElementById('filterSortBy').value,
+        sortWay: document.getElementById('filterSortWay').value,
     }
 
     location.href = filterURLMaker(data);                                 // If I try to use form.action, idk why but query will not be sent
@@ -143,9 +145,12 @@ function filterURLMaker(data){
     if(data.quantity){
         filterURL += `quantity=${data.quantity}&`;
     }
-    if(data.image){
-        filterURL += `image=${data.image}&`;
+    if(data.sortBy){
+        filterURL += `sortBy=${data.sortBy}&`;
     }
-    console.log(`FILTERED URL: ${filterURL}`);
+    if(data.sortWay){
+        filterURL += `sortWay=${data.sortWay}&`;
+    }
+
     return filterURL;
 }
