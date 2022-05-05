@@ -27,6 +27,17 @@
             <label> Name: </label> <input type="text" id="filterName" placeholder="Approximate item name..."> <br/>
             <label> Price: </label> <input type="number" id="filterMinPrice" placeholder="Min price..."> <input type="number" id="filterMaxPrice" placeholder="Max price..."> <br/>
             <label> How many items do you want to get? </label> <input type="number" id="filterQuantity" placeholder="Quantity..."> <br/>
+            <label> Sort by: </label>
+            <select id="filterSortBy">
+                <option value ="" disabled hidden selected>Default</option>
+                <option value="name">Name</option>
+                <option value="price">Price</option>
+                <option value="image">Image</option>
+            </select>
+            <select id="filterSortWay">
+                <option selected value="">Ascending</option>
+                <option value="-1">Descending</option>
+            </select>
             <input type="submit" value="Filter!" onclick="filterItems()">
         </form>
 

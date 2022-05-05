@@ -22,21 +22,28 @@ class ProductsService {
             if(filterInfo?.name){                                               // if(filterInfo && filterInfo.name) works too
                 filter = {...filter, name: filterInfo.name};
             }
-
             if(filterInfo?.min_price){
                 filter = {...filter, min_price: filterInfo.min_price};
             }
             if(filterInfo?.max_price){
                 filter = {...filter, max_price: filterInfo.max_price}; 
             }
-
             if(parseInt(filterInfo?.quantity)){
                 filter = {...filter, quantity: parseInt(filterInfo.quantity)};
             }
 
+
+            if(filterInfo?.sortBy){
+                filter = {...filter, sortBy: filterInfo.sortBy};
+            }
+            if(filterInfo?.sortWay){
+                if([1, -1, '1', '-1', 'asc', 'desc', 'ascending', 'descending'].includes(filterInfo.sortWay)){
+                    filter = {...filter, sortWay: filterInfo.sortWay};
+                }
+            }
+
             console.log(filter);
             let data = await store.get(filter);
-
 
             return data;
         } catch (err) {

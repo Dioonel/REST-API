@@ -18,7 +18,9 @@ async function getItems(filter){
             return await Model.find({$and: [
                 {name: {$regex: filter.name || '', $exists: true, $options: 'i'}},
                 {price: {$gt: filter.min_price || 0, $lt: filter.max_price || MAX_INT}}]})
-                .limit(filter.quantity || null);
+                .limit(filter.quantity || null)
+                .collation({locale: 'en'})                                                         // This line allows case insensitive sorting
+                .sort({[filter.sortBy || '_id']: filter.sortWay || 1});
         } else {
             return await Model.find(null);
         }
