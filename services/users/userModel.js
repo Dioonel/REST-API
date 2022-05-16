@@ -23,6 +23,11 @@ const userSchema = new Schema({
         type: String,
         required: false,
     },
+    created_at: {
+        type: Date,
+        default: Date.now,
+        required: true,
+    }
 });
 
 const model = mongoose.model('users', userSchema);

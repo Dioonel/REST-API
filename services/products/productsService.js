@@ -42,7 +42,6 @@ class ProductsService {
                 }
             }
 
-            console.log(filter);
             let data = await store.get(filter);
 
             return data;
