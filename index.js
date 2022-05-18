@@ -11,7 +11,7 @@ db.Promise = global.Promise;
 db(process.env.DB_URI);
 
 app.use(express.json());                                      // This middleware lets you make POST requests
-app.use('/public', express.static('public'));                 // This middleware lets public files work
+app.use(express.static(__dirname + '/public'));                 // This middleware lets public files work
 
 app.get('/', (req, res) => {
     res.sendFile('main.html', {root: './'});

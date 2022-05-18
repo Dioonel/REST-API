@@ -19,11 +19,8 @@ function searchOne(){
 
 async function createUser(){
     let obj = {
-        first_name: document.getElementById('fNamePost').value,
-        last_name: document.getElementById('lNamePost').value,
-        gender: document.getElementById('genderPost').value,
-        job_area: document.getElementById('jobPost').value,
-        contact: document.getElementById('contactPost').value,
+        username: document.getElementById('usernamePost').value,
+        password: document.getElementById('passwordPost').value,
     };
 
     obj = JSON.stringify(obj);
@@ -103,7 +100,7 @@ let postMsg = (data) => {
     let span2 = document.querySelector('.showRes');
     span1.innerHTML = `<strong>${data.message}</strong>`;
     span1.style.display = 'inline';
-    span2.innerHTML = `Welcome <strong>${data.data.first_name} ${data.data.last_name}</strong>!`;
+    span2.innerHTML = `Welcome <strong>${data.username}!`;
     span2.style.display = 'inline';
 }
 

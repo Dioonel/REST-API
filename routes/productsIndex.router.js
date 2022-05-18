@@ -3,7 +3,7 @@ const path = require('path');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    res.sendFile(path.resolve('./products.html'));
+    res.sendFile(path.resolve('./public/products.html'));
 });
 
 router.get('/:foo', (req, res) => {

@@ -8,7 +8,7 @@ class UsersService {
             throw boom.badRequest("Can't post empty data.")
         }
         try {
-            return store.add(user);
+            return await store.add(user);
         } catch (err) {
             throw boom.conflict('Please, try again later.');
         }       

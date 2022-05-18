@@ -1,5 +1,6 @@
 const boom = require('@hapi/boom');
 const express = require('express');
+const bcrypt = require('bcrypt');
 const UsersService = require('../services/users/usersService');
 
 const service = new UsersService();
@@ -10,20 +11,22 @@ router.get('/', async (req, res, next) => {                                     
         const users = await service.find();
         res.json(users);
     } catch(err){
-        next(err)
+        next(err);
     }
 });
 
 router.post('/', async (req, res, next) => {                                                        // POST (create an user)
     try {
         let body = req.body;
+        const hashPassword = await bcrypt.hash(body.password, 5);
+        body.password = hashPassword;
         body = await service.create(body);
         res.status(201).json({
             message: 'User created!',
-            data: body,
+            username: body.username,
         });
     } catch(err){
-        next(err)
+        next(err);
     }
 });
 
@@ -37,7 +40,7 @@ router.get('/:id', async (req, res, next) => {                                  
             res.json(user);
         }
     } catch(err){
-        next(err)
+        next(err);
     }
 });
 
