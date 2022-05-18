@@ -14,9 +14,13 @@ class UsersService {
         }       
     }
 
-    async find(){
+    async find(data = null){
         try {
-            return await store.get();
+            let filter = null;
+            if(data){
+                filter = data;
+            }
+            return await store.get(filter);
         } catch (err) {
             throw boom.conflict('Please, try again later.');
         }    

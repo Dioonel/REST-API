@@ -10,9 +10,13 @@ async function addUser(user){
     }
 }
 
-async function getUsers(){
+async function getUsers(filter){
     try{
-        return await Model.find().select(['-password']);
+        if(filter){
+            return await Model.find({username: filter});
+        } else {
+            return await Model.find(null).select(['-password']);
+        }
     } catch (err){
         throw boom.internal('Internal error, please try again later');
     }
