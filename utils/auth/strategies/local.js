@@ -4,11 +4,12 @@ const UsersService = require('./../../../services/users/usersService');
 const bcrypt = require('bcrypt');
 const service = new UsersService();
 
-const LocalStrategy = new Strategy({
+const options = {
     usernameField: 'username',
     passwordField: 'password'
-    },
-    async (username, password, done) => {
+}
+
+const LocalStrategy = new Strategy(options, async (username, password, done) => {
     try {
             const user = await service.findUsername(username);                                              // Validates user existence
             if(!user){
