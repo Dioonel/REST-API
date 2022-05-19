@@ -15,13 +15,13 @@ const LocalStrategy = new Strategy({
                 done(boom.unauthorized('User not found'), false);
             }
             if(user?.password){
-                const isMatch = await bcrypt.compare(password, user.password);                   // Validates password
+                const isMatch = await bcrypt.compare(password, user.password);                              // Validates password
 
                 if(!isMatch){
                     done(boom.unauthorized('Incorrect password'), false);
                 }
 
-                done(null, {message: 'Logged in!'});
+                done(null, {message: 'Logged in!', user: user});
             }
     } catch (err) {
         done(err, false);

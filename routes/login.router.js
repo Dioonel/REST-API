@@ -1,10 +1,10 @@
 const express = require('express');
 const path = require('path');
-const bcrypt = require('bcrypt');
 const router = express.Router();
 const UsersService = require('./../services/users/usersService');
 const boom = require('@hapi/boom');
 const passport = require('passport');
+const jwt = require('jsonwebtoken');
 
 const service = new UsersService();
 
@@ -16,7 +16,19 @@ router.post('/',
     passport.authenticate('local', {session: false}),
     async (req, res, next) => {
         try {
-            res.json(req.user);
+            const user = req.user.user;
+            const payload = {
+                sub: user._id,
+                role: user.role,
+            }
+
+            const token = jwt.sign(payload, process.env.JWT_SECRET);
+
+            res.json({
+                message: req.user.message,
+                user,
+                token,
+            });
         } catch (err) {
             next(err);
         }

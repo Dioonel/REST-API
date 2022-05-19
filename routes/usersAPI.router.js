@@ -2,7 +2,8 @@ const boom = require('@hapi/boom');
 const express = require('express');
 const bcrypt = require('bcrypt');
 const UsersService = require('../services/users/usersService');
-
+const passport = require('passport');
+const checkRoles = require('./../middlewares/authHandler');
 const service = new UsersService();
 const router = express.Router();
 
@@ -44,17 +45,20 @@ router.get('/:id', async (req, res, next) => {                                  
     }
 });
 
-router.patch('/:id', async (req, res, next) => {                                                     // PATCH, update an user
-    try {
-        const id = req.params.id;
-        const body = req.body;
-        const user = await service.update(id, body);
-        res.json({
-            message: 'User updated!',
-            data: user,
-        });
-    } catch(err){
-        next(err);
+router.patch('/:id',
+    passport.authenticate('jwt', {session: false}),
+    checkRoles(['admin']),
+    async (req, res, next) => {                                                     // PATCH, update an user
+        try {
+            const id = req.params.id;
+            const body = req.body;
+            const user = await service.update(id, body);
+            res.json({
+                message: 'User updated!',
+                data: user,
+            });
+        } catch(err){
+            next(err);
     }
 });
 
