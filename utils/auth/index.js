@@ -11,12 +11,12 @@ passport.use(new LocalStrategy({
     },
     async (username, password, done) => {
     try {
-            const user = await service.find(username);                                              // Validates user existance
-            if(!user[0]){
+            const user = await service.findUsername(username);                                              // Validates user existence
+            if(!user){
                 done(boom.unauthorized('User not found'), false);
             }
-            if(user[0]?.password){
-                const isMatch = await bcrypt.compare(password, user[0].password);                   // Validates password
+            if(user?.password){
+                const isMatch = await bcrypt.compare(password, user.password);                   // Validates password
 
                 if(!isMatch){
                     done(boom.unauthorized('Incorrect password'), false);

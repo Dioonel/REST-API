@@ -34,6 +34,14 @@ class UsersService {
         }
     }
 
+    async findUsername(username){
+        try{
+            return await store.getByUsername(username);
+        } catch (err){
+            throw boom.notFound('User not found.');
+        }
+    }
+
     async update(id, patch){
         try {
             return await store.update(id, patch);

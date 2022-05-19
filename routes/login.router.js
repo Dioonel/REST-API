@@ -21,7 +21,7 @@ router.post('/',
             next(err);
         }
     //     if(body?.username){
-    //         const user = await service.find(body.username);                                          // Validates user existance
+    //         const user = await service.find(body.username);                                          // Validates user existence
     //         if(user[0]?.password){
     //             const isMatch = await bcrypt.compare(body.password, user[0].password);               // Validates password
     //             if(isMatch){
