@@ -12,6 +12,8 @@ Available routes:
 'api/users'                                             GET (returns all users), POST (creates a new user), PATCH (updates a specific user)
 'api/users/{id}'                                        GET (returns a specific user), DELETE (deletes a specific user)
 
+'/login'                                                Static HTML, you can log in with an existent user
+
 
 Data required to POST or PATCH, must be sent in the body of the request.
 
