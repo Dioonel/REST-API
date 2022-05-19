@@ -3,6 +3,7 @@ const express = require('express');
 const routerAPI = require('./routes/index');
 const { logErrors, errorHandler, boomErrorHandler } = require('./middlewares/errorHandler');
 const db = require('./db');
+const passport = require('passport');
 
 const app = express();
 const port = 8080;
@@ -12,6 +13,8 @@ db(process.env.DB_URI);
 
 app.use(express.json());                                      // This middleware lets you make POST requests
 app.use(express.static(__dirname + '/public'));                 // This middleware lets public files work
+app.use(passport.initialize());
+require('./utils/auth');
 
 app.get('/', (req, res) => {
     res.sendFile('main.html', {root: './'});
