@@ -1,6 +1,13 @@
 let form = document.getElementById('login');
 form.addEventListener('submit', submit);
 const URL = 'http://localhost:8080/login';
+const params = new URLSearchParams(window.location.search);
+
+if(params.has('user')){
+    const div = document.querySelector('.redirectMsg');
+    div.innerHTML = '<strong>Please, log in first.</strong>';
+    div.style.display = 'block';
+}
 
 async function submit(){
     let obj = {
@@ -11,10 +18,12 @@ async function submit(){
     obj = JSON.stringify(obj)
 
     const res = await execute(URL, obj);
-    console.log(res);
-
     logMsg(res);
     form.reset();
+    
+    if(res?.status == 200){
+        window.location.href = "http://localhost:8080/users";
+    }
 }
 
 async function execute(URL, obj){

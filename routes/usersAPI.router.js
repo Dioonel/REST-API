@@ -9,6 +9,7 @@ const router = express.Router();
 
 router.get('/', async (req, res, next) => {                                                         // GET all users
     try {
+        console.log(req.cookies);
         const users = await service.find();
         res.json(users);
     } catch(err){

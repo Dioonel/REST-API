@@ -22,7 +22,7 @@ const LocalStrategy = new Strategy(options, async (username, password, done) => 
                     done(boom.unauthorized('Incorrect password'), false);
                 }
 
-                done(null, {message: 'Logged in!', user: user});
+                done(null, {status: 200, user: user});
             }
     } catch (err) {
         done(err, false);

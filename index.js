@@ -4,6 +4,7 @@ const routerAPI = require('./routes/index');
 const { logErrors, errorHandler, boomErrorHandler } = require('./middlewares/errorHandler');
 const db = require('./db');
 const passport = require('passport');
+const cookieParser = require('cookie-parser');
 
 const app = express();
 const port = 8080;
@@ -15,6 +16,7 @@ app.use(express.json());                                      // This middleware
 app.use(express.static(__dirname + '/public'));                 // This middleware lets public files work
 app.use(passport.initialize());
 require('./utils/auth');
+app.use(cookieParser());
 
 app.get('/', (req, res) => {
     res.sendFile('main.html', {root: './'});

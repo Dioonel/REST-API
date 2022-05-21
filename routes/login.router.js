@@ -1,9 +1,10 @@
 const express = require('express');
 const path = require('path');
 const router = express.Router();
-const boom = require('@hapi/boom');
 const passport = require('passport');
-const jwt = require('jsonwebtoken');
+const AuthService = require('./../services/users/authService');
+
+const service = new AuthService();
 
 router.get('/', (req, res) => {
     res.sendFile(path.resolve('./public/login.html'));
@@ -14,17 +15,19 @@ router.post('/',
     async (req, res, next) => {
         try {
             const user = req.user.user;
-            const payload = {
-                sub: user._id,
-                role: user.role,
-            }
-            const token = jwt.sign(payload, process.env.JWT_SECRET);
+            const status = req.user.status;
+            const token = service.signToken(user);
 
-            res.json({
-                message: req.user.message,
-                user,
-                token,
-            });
+            res.cookie('token', token, {httpOnly: false});
+
+            if(status === 200){
+                res.json({
+                    message: 'Logged in!',
+                    user,
+                    token,
+                    status
+                });
+            }    
         } catch (err) {
             next(err);
         }

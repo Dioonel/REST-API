@@ -8,6 +8,11 @@ formDelete.addEventListener('submit', deleteOne);
 const formUpdate = document.getElementById('form4');
 formUpdate.addEventListener('submit', updateOne);
 ////////////////////////////////////////////////////////
+const username = ('; '+document.cookie).split(`; username=`).pop().split(';')[0];
+if(username) {
+    const div = document.querySelector('.welcome');
+    div.innerHTML = `<strong>Welcome ${username}!</strong>`;
+}
 
 const URL = `http://localhost:8080/api/users`;
 
