@@ -22,7 +22,9 @@ async function submit(){
     form.reset();
     
     if(res?.status == 200){
-        window.location.href = "http://localhost:8080/users";
+        setTimeout(() => {
+            window.location.href = "http://localhost:8080/users";
+        }, 500);
     }
 }
 

@@ -9,7 +9,6 @@ const router = express.Router();
 
 router.get('/', async (req, res, next) => {                                                         // GET all users
     try {
-        console.log(req.cookies);
         const users = await service.find();
         res.json(users);
     } catch(err){
@@ -60,24 +59,27 @@ router.patch('/:id',
             });
         } catch(err){
             next(err);
-    }
+        }
 });
 
-router.delete('/:id', async (req, res, next) => {                                                  // DELETE an user
-    try {
-        let id = req.params.id;
-        id = await service.delete(id);
-        if (id == null || id == undefined){
-            res.json({message: 'User not found.'});
-        } else {
-            res.json({
-                message: 'User deleted.',
-                id: id
-            });
+router.delete('/:id',
+    passport.authenticate('jwt', {session: false}),
+    checkRoles(['admin']),
+    async (req, res, next) => {                                                     // DELETE an user
+        try {
+            let id = req.params.id;
+            id = await service.delete(id);
+            if (id == null || id == undefined){
+                res.json({message: 'User not found.'});
+            } else {
+                res.json({
+                    message: 'User deleted.',
+                    id: id
+                });
+            }
+        } catch(err){
+            next(err)
         }
-    } catch(err){
-        next(err)
-    }
 });
 
 
