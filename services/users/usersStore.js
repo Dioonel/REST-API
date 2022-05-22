@@ -10,9 +10,9 @@ async function addUser(user){
     }
 }
 
-async function getUsers(){
+async function getUsers(filter){
     try{
-        return await Model.find();
+        return await Model.find().select(['-password']);
     } catch (err){
         throw boom.internal('Internal error, please try again later');
     }
@@ -20,7 +20,15 @@ async function getUsers(){
 
 async function getOneUser(id){
     try{
-        return await Model.findById(id);
+        return await Model.findById(id).select(['-password']);
+    } catch (err) {
+        throw boom.internal('Internal error, please try again later');
+    }
+}
+
+async function getOneUserByUsername(username){
+    try {
+        return await Model.findOne().where({username: username});
     } catch (err) {
         throw boom.internal('Internal error, please try again later');
     }
@@ -46,6 +54,7 @@ module.exports = {
     add: addUser,
     get: getUsers,
     getOne: getOneUser,
+    getByUsername: getOneUserByUsername,
     update: updateUser,
     delete: deleteUser,
 }

@@ -3,11 +3,11 @@ const path = require('path');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    res.sendFile(path.resolve('./public/products.html'));
+    res.sendFile(path.resolve('./public/register.html'));
 });
 
 router.get('/:foo', (req, res) => {
-    res.status(404).send('Route not found.')
+    res.status(404).send('Route not found.');
 });
 
 module.exports = router;

@@ -8,15 +8,19 @@ class UsersService {
             throw boom.badRequest("Can't post empty data.")
         }
         try {
-            return store.add(user);
+            return await store.add(user);
         } catch (err) {
             throw boom.conflict('Please, try again later.');
         }       
     }
 
-    async find(){
+    async find(data = null){
         try {
-            return await store.get();
+            let filter = null;
+            if(data){
+                filter = data;
+            }
+            return await store.get(filter);
         } catch (err) {
             throw boom.conflict('Please, try again later.');
         }    
@@ -26,6 +30,14 @@ class UsersService {
         try {
             return await store.getOne(id);
         } catch(err){
+            throw boom.notFound('User not found.');
+        }
+    }
+
+    async findUsername(username){
+        try{
+            return await store.getByUsername(username);
+        } catch (err){
             throw boom.notFound('User not found.');
         }
     }

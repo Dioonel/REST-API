@@ -1,13 +1,16 @@
 ////////////////////////////////////////////////////////
-const formPost = document.getElementById('form2');
-formPost.addEventListener('submit', createUser);
-////////////////////////////////////////////////////////
 const formDelete = document.getElementById('form3');
 formDelete.addEventListener('submit', deleteOne);
 ////////////////////////////////////////////////////////
 const formUpdate = document.getElementById('form4');
 formUpdate.addEventListener('submit', updateOne);
 ////////////////////////////////////////////////////////
+const username = ('; '+document.cookie).split(`; username=`).pop().split(';')[0];
+const token = ('; '+document.cookie).split(`; token=`).pop().split(';')[0];
+if(username) {
+    const div = document.querySelector('.welcome');
+    div.innerHTML = `<strong>Welcome ${username}!</strong>`;
+}
 
 const URL = `http://localhost:8080/api/users`;
 
@@ -15,22 +18,6 @@ function searchOne(){
     const id = document.getElementById('idSearch').value;
     const form = document.getElementById('form1');
     form.action = `${URL}/${id}`;
-}
-
-async function createUser(){
-    let obj = {
-        first_name: document.getElementById('fNamePost').value,
-        last_name: document.getElementById('lNamePost').value,
-        gender: document.getElementById('genderPost').value,
-        job_area: document.getElementById('jobPost').value,
-        contact: document.getElementById('contactPost').value,
-    };
-
-    obj = JSON.stringify(obj);
-
-    const response = await doPost(URL, obj);
-    postMsg(response);
-    formPost.reset();
 }
 
 async function deleteOne(){
@@ -69,15 +56,6 @@ async function updateOne(){
     formUpdate.reset();
 }
 
-async function doPost(url, ob){
-    const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'},
-        body: ob});
-        return response.json();
-}
-
 async function doDelete(url){
     const response = await fetch(url, {
         method: 'DELETE',
@@ -93,18 +71,9 @@ async function doUpdate(url, ob){
         headers: {
             'Content-Type': 'application/json'
         },
-        body: ob
+        body: ob,
     });
     return response.json();
-}
-
-let postMsg = (data) => {
-    let span1 = document.querySelector('.postMsg');
-    let span2 = document.querySelector('.showRes');
-    span1.innerHTML = `<strong>${data.message}</strong>`;
-    span1.style.display = 'inline';
-    span2.innerHTML = `Welcome <strong>${data.data.first_name} ${data.data.last_name}</strong>!`;
-    span2.style.display = 'inline';
 }
 
 let deleteMsg = (data) => {
