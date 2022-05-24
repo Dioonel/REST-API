@@ -11,7 +11,7 @@
         <div class="mainTitle">
             <h1> Users Webpage </h1>
         </div>
-        <div class="welcome"></div>
+        <div class="welcome"><a href="http://localhost:8080/my-profile" id="profLink"></a></div>
 
         <br/>
         <a href="http://localhost:8080/api/users">Go to users API</a>
@@ -23,16 +23,6 @@
 
         <br/><br/>
 
-            <!-- <input type="text" id="fNamePost" placeholder="First name..." required/> <input type="text" id="lNamePost" placeholder="Last name..." required/>
-            <select id="genderPost" required>
-                <option value="" disabled hidden selected>Gender...</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-                <option value="Other">Other</option>
-            </select>
-            <br/>
-            <input type="text" id="jobPost" placeholder="Job area..."> <input type="tel" id="contactPost" placeholder="Phone number..."> -->
-
         <form onsubmit="return false" id="form3">
             <h1> Delete an user </h1>
             <input id="idDelete" required placeholder="User ID..."> <input type="submit"><span class="delMsg"></span>
@@ -40,7 +30,7 @@
 
         <br/><br/>
 
-        <form onsubmit="return false" id="form4">
+        <!-- <form onsubmit="return false" id="form4">
             <h1> Update an user </h1> <span class="note"> (There's no need to re-write all the data, just fill up the ones you want to change) </span> <br/><br/>
             <label> User you want to update: </label> <input id="idUpdate" required placeholder="User ID..."> <br/>
             <input id="updateFirstName" placeholder="New first name..."> <input id="updateLastName" placeholder="New last name...">
@@ -52,7 +42,7 @@
             </select> <br/>
             <input id="updateJobArea" placeholder="New job area..."> <input type="tel" id="updateContact" placeholder="New phone number...">
             <input type="submit"><span class="updMsg">
-        </form>
+        </form> -->
 
         <script src="./scriptUsers.js"></script>
     </body>

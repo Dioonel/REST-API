@@ -47,7 +47,7 @@ router.get('/:id', async (req, res, next) => {                                  
 
 router.patch('/:id',
     passport.authenticate('jwt', {session: false}),
-    checkRoles(['admin']),
+    checkRoles(['admin, user']),
     async (req, res, next) => {                                                     // PATCH, update an user
         try {
             const id = req.params.id;

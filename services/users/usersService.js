@@ -8,7 +8,10 @@ class UsersService {
             throw boom.badRequest("Can't post empty data.")
         }
         try {
-            return await store.add(user);
+            let myUser = await store.add(user);
+            myUser = myUser.toObject();
+            delete myUser.password;
+            return myUser;
         } catch (err) {
             throw boom.conflict('Please, try again later.');
         }       

@@ -4,6 +4,7 @@ const usersIndexRouter = require("./usersIndex.router");
 const usersRouterAPI = require("./usersAPI.router");
 const loginRouter = require("./login.router");
 const registerRouter = require("./register.router.js");
+const myProfileRouter = require("./my-profile.router");
 
 function routerAPI(app){
     app.use('/products', productsIndexRouter);
@@ -12,6 +13,7 @@ function routerAPI(app){
     app.use('/api/users', usersRouterAPI);
     app.use('/login', loginRouter);
     app.use('/register', registerRouter);
+    app.use('/my-profile', myProfileRouter);
 }
 
 module.exports = routerAPI;

@@ -61,3 +61,49 @@ select {
     background-color: rgb(141, 141, 141);
     margin: auto 90% auto auto;
 }
+
+.profile-welcome{
+    margin: 25px auto 40px auto;
+    color: black;
+    text-align: center;
+}
+
+.div1{
+    overflow: auto; 
+}
+
+.div2{
+    margin: 5px;
+    float: left;
+}
+
+.div3{
+    margin-top: 125px;
+    float: left;
+}
+
+.div4{
+    display: none;
+    margin: 8px;
+}
+
+.ppic{
+    margin: 10px;
+    width: 400px;
+    height: 400px;
+    float: left;
+    border: 3px solid black;
+}
+
+.username{
+    font-size: 140%;
+}
+
+.m-p-button{
+    margin-left: 20%;
+}
+
+.thumbnail{
+    width: 150px;
+    height: 150px;
+}

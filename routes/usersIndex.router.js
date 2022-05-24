@@ -13,6 +13,7 @@ router.get('/', async (req, res, next) => {
             const user = await service.findOne(payload.sub);
             if(user){
                 res.cookie('username', user.username, {httpOnly: false});
+                res.cookie('id', payload.sub, {httpOnly: false});
                 res.sendFile(path.resolve('./public/users.html'));
             }
         } else {

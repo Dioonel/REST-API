@@ -32,12 +32,22 @@ const userSchema = new Schema({
         required: false,
         default: '',
     },
+    date_of_birth: {
+        type: Date,
+        required: false,
+        default: '',
+    },
     job_area: {
         type: String,
         required: false,
         default: '',
     },
     contact: {
+        type: String,
+        required: false,
+        default: '',
+    },
+    image: {
         type: String,
         required: false,
         default: '',
