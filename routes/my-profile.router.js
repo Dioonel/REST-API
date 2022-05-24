@@ -1,9 +1,12 @@
 const express = require('express');
 const path = require('path');
 const router = express.Router();
+const passport = require('passport');
 
-router.get('/', (req, res) => {
-    res.sendFile(path.resolve('./public/my-profile.html'));
+router.get('/',
+    passport.authenticate('jwt', {session: false, failureRedirect: '/login?user=false'}),
+    (req, res) => {
+        res.sendFile(path.resolve('./public/my-profile.html'));
 });
 
 router.get('/:foo', (req, res) => {
