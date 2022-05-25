@@ -11,25 +11,24 @@
         <div class="mainTitle">
             <h1> Products Webpage </h1>
         </div>
+        <br/> 
 
-        <br/>
         <a href="http://localhost:8080/api/products">Go to products API</a>
         <br/><br/><br/>
 
-        <form action="" id="form1">
-            <label> Search item by ID: </label> <input id="idSearch" required placeholder="Product ID..."> <input type="submit" value="Search" onclick="searchOne()">
+        <form id="formGet" onsubmit="searchOne()">
+            <label> Search item by ID: </label> <input type="text" id="idSearch" required placeholder="Product ID..."> <input type="submit" value="Search">
         </form>
-
         <br/>
 
-        <form onsubmit="return false">
+        <form id="formFilter" onsubmit="filterItems(); return false">
             <h1> Filters </h1>
             <label> Name: </label> <input type="text" id="filterName" placeholder="Approximate item name..."> <br/>
             <label> Price: </label> <input type="number" id="filterMinPrice" placeholder="Min price..."> <input type="number" id="filterMaxPrice" placeholder="Max price..."> <br/>
             <label> How many items do you want to get? </label> <input type="number" id="filterQuantity" placeholder="Quantity..."> <br/>
             <label> Sort by: </label>
             <select id="filterSortBy">
-                <option value ="" disabled hidden selected>Default</option>
+                <option value ="" selected>Default</option>
                 <option value="name">Name</option>
                 <option value="price">Price</option>
                 <option value="image">Image</option>
@@ -38,30 +37,27 @@
                 <option selected value="">Ascending</option>
                 <option value="-1">Descending</option>
             </select>
-            <input type="submit" value="Filter!" onclick="filterItems()">
+            <input type="submit" value="Filter!">
         </form>
-
         <br/><br/>
 
-        <form onsubmit="return false" id="form2">
+        <form id="formPost" onsubmit="createItem(); return false">
             <h1> Create an item </h1>
-            <input id="namePost" placeholder="Item name..." required> <input type="number" id="pricePost" placeholder="Set a price..." required>
-            <input id="imagePost" placeholder="Image URL..."> <input type="submit" value="Create"> <span class="postMsg"></span><span class="showRes"></span>
+            <input type="text" id="namePost" placeholder="Item name..." required> <input type="number" id="pricePost" placeholder="Set a price..." required>
+            <input type="url" id="imagePost" placeholder="Image URL..."> <input type="submit" value="Create"> <span class="postMsg"></span><span class="showRes"></span>
         </form>
-
         <br/><br/>
 
-        <form onsubmit="return false" id="form3">
+        <form id="formDelete" onsubmit="deleteOne(); return false">
             <h1> Delete an item </h1>
-            <input id="idDelete" required placeholder="Product ID..."> <input type="submit" value="Delete"><span class="delMsg"></span>
+            <input type="text" id="idDelete" required placeholder="Product ID..."> <input type="submit" value="Delete"><span class="delMsg"></span>
         </form>
-
         <br/><br/>
 
-        <form onsubmit="return false" id="form4">
+        <form id="formUpdate" onsubmit="updateOne(); return false">
             <h1> Update an item </h1> <span class="note"> (There's no need to re-write all the data, just fill up the ones you want to change) </span> <br/><br/>
             <label> Item you want to update: </label> <input id="idUpdate" required placeholder="Product ID..."> <br/>
-            <input id="nameUpdate" placeholder="New item name..."> <input type="number" id="priceUpdate" placeholder="New price..."> <input id="imageUpdate" placeholder="New image URL...">
+            <input type="text" id="nameUpdate" placeholder="New item name..."> <input type="number" id="priceUpdate" placeholder="New price..."> <input type="url" id="imageUpdate" placeholder="New image URL...">
             <input type="submit" value="Update"><span class="updMsg">
         </form>
 

@@ -1,19 +1,8 @@
-////////////////////////////////////////////////////////
-const formPost = document.getElementById('form2');
-formPost.addEventListener('submit', createItem);
-////////////////////////////////////////////////////////
-const formDelete = document.getElementById('form3');
-formDelete.addEventListener('submit', deleteOne);
-////////////////////////////////////////////////////////
-const formUpdate = document.getElementById('form4');
-formUpdate.addEventListener('submit', updateOne);
-////////////////////////////////////////////////////////
-
 const URL = `http://localhost:8080/api/products`;
 
 function searchOne(){
     const id = document.getElementById('idSearch').value;
-    const form = document.getElementById('form1');
+    const form = document.getElementById('formGet');
     form.action = `${URL}/${id}`;
 }
 
@@ -41,7 +30,7 @@ async function createItem(){
 
     const response = await doPost(URL, obj);
     postMsg(response);
-    formPost.reset();
+    document.getElementById('formPost').reset();
 }
 
 async function deleteOne(){
@@ -49,7 +38,7 @@ async function deleteOne(){
 
     const response = await doDelete(`${URL}/${id}`);
     deleteMsg(response);
-    formDelete.reset();
+    document.getElementById('formDelete').reset();
 }
 
 async function updateOne(){
@@ -75,7 +64,7 @@ async function updateOne(){
 
     const response = await doUpdate(`${URL}/${id}`, obj);
     updateMsg(response);
-    formUpdate.reset();
+    document.getElementById('formUpdate').reset();
 }
 
 

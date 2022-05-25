@@ -1,23 +1,21 @@
-const username = document.getElementById('username');
-const first_name = document.getElementById('first-name');
-const last_name = document.getElementById('last-name');
-const gender = document.getElementById('gender');
-const birth = document.getElementById('birth');
-const job = document.getElementById('job');
-const contact = document.getElementById('contact');
-const ppic = document.getElementById('ppic');
-
-
-const baseDiv = document.querySelector('.div1');
-const formDiv = document.querySelector('.div4');
 const id = ('; '+document.cookie).split(`; id=`).pop().split(';')[0];
+const URL = `http://localhost:8080/api/users/${id}`;
 
-window.addEventListener('DOMContentLoaded', async (event) => {
-    const URL = `http://localhost:8080/api/users/${id}`;
+const imagePatch = document.getElementById('ppicPatch');
+imagePatch.addEventListener('change', thumbnailPreview);
+
+window.addEventListener('DOMContentLoaded', async () => {
     const res = await fetchUserData(URL);
 
+    const username = document.getElementById('username');
+    const first_name = document.getElementById('first-name');
+    const last_name = document.getElementById('last-name');
+    const gender = document.getElementById('gender');
+    const birth = document.getElementById('birth');
+    const job = document.getElementById('job');
+    const contact = document.getElementById('contact');
+    const ppic = document.getElementById('ppic');
 
-    ppic.src = res.image;
     username.innerHTML = `User: ${res.username}`;
     first_name.innerHTML = `<strong>${res.first_name || 'undefined'}</strong>`;
     last_name.innerHTML = `<strong>${res.last_name || 'undefined'}</strong>`;
@@ -25,6 +23,7 @@ window.addEventListener('DOMContentLoaded', async (event) => {
     birth.innerHTML = `Date of birth: <strong>${res.date_of_birth || 'undefined'}</strong>`;
     job.innerHTML = `Job area: <strong>${res.job_area || 'undefined'}</strong>`;
     contact.innerHTML = `Contact: <strong>${res.contact || 'undefined'}</strong>`;
+    ppic.src = res.image;
 });
 
 
@@ -39,13 +38,14 @@ async function fetchUserData(url){
 }
 
 async function editEnable(){
+    const baseDiv = document.querySelector('.div1');
+    const formDiv = document.querySelector('.div4');
+
     baseDiv.style.display = 'none';
     formDiv.style.display = 'block';
 }
 
 async function formPatch(){
-    const URL = `http://localhost:8080/api/users/${id}`;
-
     const first_name = {prop: 'first_name', value: document.getElementById('fNamePatch').value};
     const last_name = {prop: 'last_name', value: document.getElementById('lNamePatch').value};
     const gender = {prop: 'gender', value: document.getElementById('genderPatch').value};
@@ -86,9 +86,6 @@ async function executePatch(url, obj){
     });
     return response.json();
 }
-
-const imagePatch = document.getElementById('ppicPatch');
-imagePatch.addEventListener('change', thumbnailPreview);
 
 function thumbnailPreview(){
     setTimeout(() => {

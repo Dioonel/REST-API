@@ -1,8 +1,7 @@
-let form = document.getElementById('register');
-form.addEventListener('submit', submit);
 const URL = 'http://localhost:8080/api/users';
+const form = document.getElementById('register');
 
-async function submit(){
+async function registerUser(){
     let obj = {
         username: document.getElementById('username').value,
         password: document.getElementById('password').value,
@@ -11,9 +10,7 @@ async function submit(){
     let confirmPassword = document.getElementById('confirmPassword').value;
 
     if(obj.password === confirmPassword){
-        console.log('hola?');
         obj = JSON.stringify(obj);
-
         const res = await execute(URL, obj);
         form.reset();
 

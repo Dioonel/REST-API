@@ -17,32 +17,16 @@
         <a href="http://localhost:8080/api/users">Go to users API</a>
         <br/><br/><br/>
 
-        <form action="" id="form1">
-            <label> Search user by ID: </label> <input id="idSearch" required placeholder="User ID..."> <input type="submit" value="Search" onclick="searchOne()">
+        <form id="formGet">
+            <label> Search user by ID: </label> <input type="text" id="idSearch" required placeholder="User ID..."> <input type="submit" value="Search" onclick="searchOne()">
         </form>
-
         <br/><br/>
 
-        <form onsubmit="return false" id="form3">
+        <form id="formDelete" onsubmit="deleteOne(); return false">
             <h1> Delete an user </h1>
-            <input id="idDelete" required placeholder="User ID..."> <input type="submit" value="Delete"><span class="delMsg"></span>
+            <input type="text" id="idDelete" required placeholder="User ID..."> <input type="submit" value="Delete"><span class="delMsg"></span>
         </form>
-
         <br/><br/>
-
-        <!-- <form onsubmit="return false" id="form4">
-            <h1> Update an user </h1> <span class="note"> (There's no need to re-write all the data, just fill up the ones you want to change) </span> <br/><br/>
-            <label> User you want to update: </label> <input id="idUpdate" required placeholder="User ID..."> <br/>
-            <input id="updateFirstName" placeholder="New first name..."> <input id="updateLastName" placeholder="New last name...">
-            <select id="updateGender">
-                <option value="" disabled hidden selected>Gender...</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-                <option value="Other">Other</option>
-            </select> <br/>
-            <input id="updateJobArea" placeholder="New job area..."> <input type="tel" id="updateContact" placeholder="New phone number...">
-            <input type="submit"><span class="updMsg">
-        </form> -->
 
         <script src="./scriptUsers.js"></script>
     </body>

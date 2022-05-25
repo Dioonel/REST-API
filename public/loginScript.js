@@ -1,5 +1,3 @@
-let form = document.getElementById('login');
-form.addEventListener('submit', submit);
 const URL = 'http://localhost:8080/login';
 const params = new URLSearchParams(window.location.search);
 
@@ -9,7 +7,7 @@ if(params.has('user')){
     div.style.display = 'block';
 }
 
-async function submit(){
+async function loginUser(){
     let obj = {
         username: document.getElementById('username').value,
         password: document.getElementById('password').value
@@ -19,7 +17,7 @@ async function submit(){
 
     const res = await execute(URL, obj);
     logMsg(res);
-    form.reset();
+    document.getElementById('login').reset();
     
     if(res?.status == 200){
         setTimeout(() => {

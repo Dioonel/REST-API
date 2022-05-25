@@ -24,13 +24,13 @@
         </div>
     </div>
 
-
     <div class="div4">
         <br>
+        <form action="#" onsubmit="formPatch()">
             <label>First name: </label><input type="text" id="fNamePatch"> <label>Last name: </label><input type="text" id="lNamePatch">
             <br/><br/>
             <label>Date of birth: </label><input type="date" id="birthPatch">
-            <select id="genderPatch" required>
+            <select id="genderPatch">
                 <option value="" disabled hidden selected>Gender...</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
@@ -38,12 +38,13 @@
             </select>
             <br/><br/>
             <label>Job area: </label><input type="text" id="jobPatch"> <label>Contact: </label><input type="tel" id="contactPatch"> <br/><br/>
-            <label> Profile picture: </label><input type='url' id='ppicPatch'/>
+            <label> Profile picture: </label><input type='url' id='ppicPatch' placeholder="Image URL..."/>
             <br/>
             <img class="thumbnail">
-            <input type="submit" onclick="formPatch()" class="m-p-button" value="Update"><span class="updMsg"></span>
+            <input type="submit" class="m-p-button" value="Update"><span class="updMsg"></span>
         </form>
     </div>
+    
     <script src="./my-profileScript.js"></script>
 </body>
 </html>
