@@ -8,17 +8,14 @@
         <title>Users</title>
     </head>
     <body>
-        <div class="mainTitle">
-            <h1> Users Webpage </h1>
-        </div>
-        <div class="welcome"><a href="http://localhost:8080/my-profile" id="profLink"></a></div>
+        <h1 class="main-header"> Users Webpage </h1>
 
-        <br/>
-        <a href="http://localhost:8080/api/users">Go to users API</a>
-        <br/><br/><br/>
+        <a class="link-btn" href="http://localhost:8080/my-profile" id="profLink"></a>
+        <a class="link-btn" href="http://localhost:8080/api/users">Go to users API</a>
+        <br/><br/>
 
         <form id="formGet">
-            <label> Search user by ID: </label> <input type="text" id="idSearch" required placeholder="User ID..."> <input type="submit" value="Search" onclick="searchOne()">
+            <label><strong> Search user by ID: </strong></label> <input type="text" id="idSearch" required placeholder="User ID..."> <input type="submit" value="Search" onclick="searchOne()">
         </form>
         <br/><br/>
 

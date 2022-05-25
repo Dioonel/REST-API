@@ -1,10 +1,39 @@
-.mainTitle{
+body{
+    padding: 5px;
+}
+
+.main-header{
+    font-size: 48px;
+    color: #3b3a30;
     text-align: center;
+    padding: 10px;
+    background-color: #e0e0e0;
+    border: 5px solid #3b3a30;
+}
+
+.simple-header{
+    font-size: 50px;
+    text-align: left;
+    margin: 10px;
+}
+
+.parent{
+    text-align: left;
+}
+
+.element{
+    margin: 5px;
+
+}
+
+label{
+    margin: 4px;
 }
 
 input {
     padding: 4px;
-    margin: 3px;
+    margin: 4px;
+    display: inline-block;
 }
 
 select {
@@ -53,6 +82,10 @@ select {
     color: rgb(255, 0, 0);
     background-color: rgb(255, 128, 128);
     display: none;
+}
+
+.back-form{
+    display: inline-block;
 }
 
 .welcome{
@@ -106,4 +139,19 @@ select {
 .thumbnail{
     width: 150px;
     height: 150px;
+}
+
+.link-btn{
+    font-size: 16px;
+    padding: 18px;
+    background-color:#c4e0db;
+    border: 4px solid #649595;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.link-btn:hover{
+    background-color: #649595;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
 }

@@ -1,6 +1,5 @@
 const boom = require('@hapi/boom');
 const express = require('express');
-const bcrypt = require('bcrypt');
 const UsersService = require('../services/users/usersService');
 const passport = require('passport');
 const checkRoles = require('./../middlewares/authHandler');
@@ -19,8 +18,6 @@ router.get('/', async (req, res, next) => {                                     
 router.post('/', async (req, res, next) => {                                                        // POST (create an user)
     try {
         let body = req.body;
-        const hashPassword = await bcrypt.hash(body.password, 5);
-        body.password = hashPassword;
         body = await service.create(body);
         res.status(201).json({
             message: 'User created!',

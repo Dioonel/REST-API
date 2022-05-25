@@ -19,6 +19,8 @@ router.post('/',
             const token = service.signToken(user);
 
             res.cookie('token', token, {httpOnly: false});
+            res.cookie('username', user.username, {httpOnly: false});
+            res.cookie('id', user._id.toString(), {httpOnly: false});
 
             if(status === 200){
                 res.json({

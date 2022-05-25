@@ -1,14 +1,25 @@
 const boom = require('@hapi/boom');
 const store = require('./usersStore');
+const bcrypt = require('bcrypt');
 
 class UsersService {
 
-    async create(user){
-        if(!user){
-            throw boom.badRequest("Can't post empty data.")
+    async create(data){
+        if(!data){
+            throw boom.badRequest("Can't post empty data.");
+        }
+        if(!data.password){
+            throw boom.badRequest('Password not provided');
         }
         try {
-            let myUser = await store.add(user);
+            const hashedPassword = await bcrypt.hash(data.password, 5)
+            const newData = {
+                ...data,
+                password: hashedPassword
+            }
+
+            let myUser = await store.add(newData);
+            
             myUser = myUser.toObject();
             delete myUser.password;
             return myUser;

@@ -8,14 +8,25 @@
     <title>Login</title>
 </head>
 <body>
-    <h1>LOGIN</h1>
-    <a href="/register">You don't have an account? Create yours now!</a> <br/><br/>
+    <h1 class="simple-header">LOGIN</h1>
     <div class="redirectMsg"></div>
+    <div class="parent">
     <form id="login" onsubmit="loginUser(); return false">
-        <label> Username: </label> <input type="text" id="username" required>
-        <label> Password: </label> <input type="password" id="password" required>
-        <input type="submit" value="Log in"><span class="postMsg"></span>
+        <div class="back-form">
+            <div class="element">
+                <label><strong> Username: </strong></label> <input type="text" id="username" required> <br/>
+            </div>
+            <div class="element">
+                <label><strong> Password: </strong></label>   <input type="password" id="password" required>
+            </div>
+            <div class="element">
+                <input type="submit" value="Log in"><span class="postMsg"></span> <br/><br/>
+            </div>
+        <a href="/register">You don't have an account? Create yours now!</a>
+        </div>
     </form>
+    </div>
+    <br/>
 
     <script src="./loginScript.js"></script>
 </body>

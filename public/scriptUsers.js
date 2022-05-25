@@ -4,7 +4,7 @@ const token = ('; '+document.cookie).split(`; token=`).pop().split(';')[0];
 
 if(username) {
     const link = document.getElementById('profLink');
-    link.innerHTML = `<strong>Welcome ${username}!</strong>`;
+    link.innerHTML = `Welcome ${username}!`;
 }
 
 function searchOne(){

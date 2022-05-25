@@ -8,25 +8,21 @@
         <title>Products</title>
     </head>
     <body>
-        <div class="mainTitle">
-            <h1> Products Webpage </h1>
-        </div>
-        <br/> 
-
-        <a href="http://localhost:8080/api/products">Go to products API</a>
-        <br/><br/><br/>
+        <h1 class="main-header"> Products Webpage </h1>
+        <a class="link-btn" href="http://localhost:8080/api/products">Go to products API</a>
+        <br/><br/>
 
         <form id="formGet" onsubmit="searchOne()">
-            <label> Search item by ID: </label> <input type="text" id="idSearch" required placeholder="Product ID..."> <input type="submit" value="Search">
+            <label><strong> Search item by ID: </strong></label> <input type="text" id="idSearch" required placeholder="Product ID..."> <input type="submit" value="Search">
         </form>
         <br/>
 
         <form id="formFilter" onsubmit="filterItems(); return false">
             <h1> Filters </h1>
-            <label> Name: </label> <input type="text" id="filterName" placeholder="Approximate item name..."> <br/>
-            <label> Price: </label> <input type="number" id="filterMinPrice" placeholder="Min price..."> <input type="number" id="filterMaxPrice" placeholder="Max price..."> <br/>
-            <label> How many items do you want to get? </label> <input type="number" id="filterQuantity" placeholder="Quantity..."> <br/>
-            <label> Sort by: </label>
+            <label><strong> Name: </strong></label> <input type="text" id="filterName" placeholder="Approximate item name..."> <br/>
+            <label><strong> Price: </strong></label> <input type="number" id="filterMinPrice" placeholder="Min price..."> <input type="number" id="filterMaxPrice" placeholder="Max price..."> <br/>
+            <label><strong> How many items do you want to get? </strong></label> <input type="number" id="filterQuantity" placeholder="Quantity..."> <br/>
+            <label><strong> Sort by: </strong></label>
             <select id="filterSortBy">
                 <option value ="" selected>Default</option>
                 <option value="name">Name</option>

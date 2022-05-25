@@ -15,30 +15,30 @@ class ProductsService {
         }   
     }
 
-    async find(filterInfo){
+    async find(query){
         try {
-            let filter = null;   
+            let filter = null;
 
-            if(filterInfo?.name){                                               // if(filterInfo && filterInfo.name) works too
-                filter = {...filter, name: filterInfo.name};
+            if(query?.name){
+                filter = {...filter, name: query.name};
             }
-            if(filterInfo?.min_price){
-                filter = {...filter, min_price: filterInfo.min_price};
+            if(query?.min_price){
+                filter = {...filter, min_price: query.min_price};
             }
-            if(filterInfo?.max_price){
-                filter = {...filter, max_price: filterInfo.max_price}; 
+            if(query?.max_price){
+                filter = {...filter, max_price: query.max_price}; 
             }
-            if(parseInt(filterInfo?.quantity)){
-                filter = {...filter, quantity: parseInt(filterInfo.quantity)};
+            if(parseInt(query?.quantity)){
+                filter = {...filter, quantity: parseInt(query.quantity)};
             }
 
 
-            if(filterInfo?.sortBy){
-                filter = {...filter, sortBy: filterInfo.sortBy};
+            if(query?.sortBy){
+                filter = {...filter, sortBy: query.sortBy};
             }
-            if(filterInfo?.sortWay){
-                if([1, -1, '1', '-1', 'asc', 'desc', 'ascending', 'descending'].includes(filterInfo.sortWay)){
-                    filter = {...filter, sortWay: filterInfo.sortWay};
+            if(query?.sortWay){
+                if([1, -1, '1', '-1', 'asc', 'desc', 'ascending', 'descending'].includes(query.sortWay)){
+                    filter = {...filter, sortWay: query.sortWay};
                 }
             }
 
