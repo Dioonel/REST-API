@@ -8,7 +8,7 @@
     <title>My profile</title>
 </head>
 <body>
-    <h1 class="profile-welcome">Welcome to your profile</h1>
+    <h1 class="main-header">Welcome to your profile</h1> <br/>
     <div class="div1">
         <img id="ppic" class="ppic"> 
         <div class="div2">
@@ -25,22 +25,46 @@
     </div>
 
     <div class="div4">
-        <br>
+        <span class="note">You can customize your profile data!</span>
+        <br><br/>
         <form action="#" onsubmit="formPatch()">
-            <label>First name: </label><input type="text" id="fNamePatch"> <label>Last name: </label><input type="text" id="lNamePatch">
-            <br/><br/>
-            <label>Date of birth: </label><input type="date" id="birthPatch">
-            <select id="genderPatch">
-                <option value="" disabled hidden selected>Gender...</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-                <option value="Other">Other</option>
-            </select>
-            <br/><br/>
-            <label>Job area: </label><input type="text" id="jobPatch"> <label>Contact: </label><input type="tel" id="contactPatch"> <br/><br/>
-            <label> Profile picture: </label><input type='url' id='ppicPatch' placeholder="Image URL..."/>
-            <br/>
-            <img class="thumbnail">
+            
+
+            <div class="element">
+                <label><strong>First name: </strong></label><input type="text" id="fNamePatch">
+            </div>
+            
+            <div class="element">
+                <label><strong>Last name: </strong></label><input type="text" id="lNamePatch">
+            </div>
+            
+            <div class="element">
+                <label><strong>Date of birth: </strong></label><input type="date" id="birthPatch">
+            </div>
+            
+            <div class="element">
+                <label><strong>Gender: </strong></label>
+                <select id="genderPatch">
+                    <option value="" disabled hidden selected>...</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+
+            <div class="element">
+                <label><strong>Job area: </strong></label><input type="text" id="jobPatch">
+            </div>
+            
+            <div class="element">
+                <label><strong>Contact: </strong></label><input type="tel" id="contactPatch">
+            </div>
+            
+            <div class="element">
+                <label><strong>Profile picture: </strong></label><input type='url' id='ppicPatch' placeholder="Image URL..."/><br/><br/>
+                <img class="thumbnail">
+            </div>
+            
             <input type="submit" class="m-p-button" value="Update"><span class="updMsg"></span>
         </form>
     </div>

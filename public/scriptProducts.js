@@ -143,3 +143,43 @@ function filterURLMaker(data){
 
     return filterURL;
 }
+
+function enableFilter(){
+    const div = document.querySelector('.divFilter');
+
+    if(div.style.display == 'block'){
+        div.style.display = 'none';
+    } else {
+        div.style.display = 'block';
+    }
+}
+
+function enablePost(){
+    const div = document.querySelector('.divPost');
+
+    if(div.style.display == 'block'){
+        div.style.display = 'none';
+    } else {
+        div.style.display = 'block';
+    }
+}
+
+function enableDelete(){
+    const div = document.querySelector('.divDelete');
+
+    if(div.style.display == 'block'){
+        div.style.display = 'none';
+    } else {
+        div.style.display = 'block';
+    }
+}
+
+function enableUpdate(){
+    const div = document.querySelector('.divUpdate');
+
+    if(div.style.display == 'block'){
+        div.style.display = 'none';
+    } else {
+        div.style.display = 'block';
+    }
+}

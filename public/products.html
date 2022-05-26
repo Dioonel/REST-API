@@ -16,46 +16,59 @@
             <label><strong> Search item by ID: </strong></label> <input type="text" id="idSearch" required placeholder="Product ID..."> <input type="submit" value="Search">
         </form>
         <br/>
-
-        <form id="formFilter" onsubmit="filterItems(); return false">
-            <h1> Filters </h1>
-            <label><strong> Name: </strong></label> <input type="text" id="filterName" placeholder="Approximate item name..."> <br/>
-            <label><strong> Price: </strong></label> <input type="number" id="filterMinPrice" placeholder="Min price..."> <input type="number" id="filterMaxPrice" placeholder="Max price..."> <br/>
-            <label><strong> How many items do you want to get? </strong></label> <input type="number" id="filterQuantity" placeholder="Quantity..."> <br/>
-            <label><strong> Sort by: </strong></label>
-            <select id="filterSortBy">
-                <option value ="" selected>Default</option>
-                <option value="name">Name</option>
-                <option value="price">Price</option>
-                <option value="image">Image</option>
-            </select>
-            <select id="filterSortWay">
-                <option selected value="">Ascending</option>
-                <option value="-1">Descending</option>
-            </select>
-            <input type="submit" value="Filter!">
-        </form>
+        
+        <span class="btn-span" id="enableFilter" onclick="enableFilter()">Filters</span>
+        <div class="divFilter">
+            <form id="formFilter" onsubmit="filterItems(); return false">
+                <br/>
+                <label><strong> Name: </strong></label> <input type="text" id="filterName" placeholder="Approximate item name..."> <br/>
+                <label><strong> Price: </strong></label> <input type="number" id="filterMinPrice" placeholder="Min price..."> <input type="number" id="filterMaxPrice" placeholder="Max price..."> <br/>
+                <label><strong> How many items do you want to get? </strong></label> <input type="number" id="filterQuantity" placeholder="Quantity..."> <br/>
+                <label><strong> Sort by: </strong></label>
+                <select id="filterSortBy">
+                    <option value ="" selected>Default</option>
+                    <option value="name">Name</option>
+                    <option value="price">Price</option>
+                    <option value="image">Image</option>
+                </select>
+                <select id="filterSortWay">
+                    <option selected value="">Ascending</option>
+                    <option value="-1">Descending</option>
+                </select>
+                <input type="submit" value="Filter!">
+            </form>
+        </div>
         <br/><br/>
 
-        <form id="formPost" onsubmit="createItem(); return false">
-            <h1> Create an item </h1>
-            <input type="text" id="namePost" placeholder="Item name..." required> <input type="number" id="pricePost" placeholder="Set a price..." required>
-            <input type="url" id="imagePost" placeholder="Image URL..."> <input type="submit" value="Create"> <span class="postMsg"></span><span class="showRes"></span>
-        </form>
+        <span class="btn-span" id="enablePost" onclick="enablePost()">Create an item</span>
+        <div class="divPost">
+            <form id="formPost" onsubmit="createItem(); return false">
+                <br/>
+                <input type="text" id="namePost" placeholder="Item name..." required> <input type="number" id="pricePost" placeholder="Set a price..." required>
+                <input type="url" id="imagePost" placeholder="Image URL..."> <input type="submit" value="Create"> <span class="postMsg"></span><span class="showRes"></span>
+            </form>
+        </div>
         <br/><br/>
 
-        <form id="formDelete" onsubmit="deleteOne(); return false">
-            <h1> Delete an item </h1>
-            <input type="text" id="idDelete" required placeholder="Product ID..."> <input type="submit" value="Delete"><span class="delMsg"></span>
-        </form>
+        <span class="btn-span" id="enableUpdate" onclick="enableDelete()">Delete an item</span>
+        <div class="divDelete">
+            <form id="formDelete" onsubmit="deleteOne(); return false">
+                <br/>
+                <input type="text" id="idDelete" required placeholder="Product ID..."> <input type="submit" value="Delete"><span class="delMsg"></span>
+            </form>
+        </div>
         <br/><br/>
 
-        <form id="formUpdate" onsubmit="updateOne(); return false">
-            <h1> Update an item </h1> <span class="note"> (There's no need to re-write all the data, just fill up the ones you want to change) </span> <br/><br/>
-            <label> Item you want to update: </label> <input id="idUpdate" required placeholder="Product ID..."> <br/>
-            <input type="text" id="nameUpdate" placeholder="New item name..."> <input type="number" id="priceUpdate" placeholder="New price..."> <input type="url" id="imageUpdate" placeholder="New image URL...">
-            <input type="submit" value="Update"><span class="updMsg">
-        </form>
+        <span class="btn-span" id="enableUpdate" onclick="enableUpdate()">Update an item</span>
+        <div class="divUpdate">
+            <form id="formUpdate" onsubmit="updateOne(); return false">
+                <br/>
+                <span class="note"> (There's no need to re-write all the data, just fill up the ones you want to change) </span> <br/><br/>
+                <label> Item you want to update: </label> <input id="idUpdate" required placeholder="Product ID..."> <br/>
+                <input type="text" id="nameUpdate" placeholder="New item name..."> <input type="number" id="priceUpdate" placeholder="New price..."> <input type="url" id="imageUpdate" placeholder="New image URL...">
+                <input type="submit" value="Update"><span class="updMsg">
+            </form>
+        </div>
 
         <script src="./scriptProducts.js"></script>
     </body>
