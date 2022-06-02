@@ -20,7 +20,12 @@ const postingSchema = new Schema({
         type: mongoose.Types.ObjectId,
         required: true,
         ref: 'products',
-    } 
+    },
+    comments: [{
+        type: mongoose.Types.ObjectId,
+        required: false,
+        ref: 'comments',
+    }]
 });
 
 const model = mongoose.model('postings', postingSchema);

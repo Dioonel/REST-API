@@ -1,6 +1,9 @@
 const boom = require('@hapi/boom');
 const store = require('./postingStore');
 
+const CommentsService = require('../comments/commentService');
+const commentService = new CommentsService();
+
 class PostingsService {
 
     async create(data){
@@ -47,6 +50,20 @@ class PostingsService {
             return await store.delete(id);
         } catch (err) {
             throw boom.notFound('[controlador de posts] id no encontrada');
+        }
+    }
+
+    async addCommentToPost(userId, postId, comment){
+        try{
+            let post = await store.getOne(postId);
+            
+            if(post?._id == postId){
+                return await commentService.create(userId, postId, comment);
+            } else {
+                throw boom.notFound('[controlador de posts] no puedes agregar un comentario a un post que no existe');
+            }
+        } catch (err){
+            throw boom.internal('[controlador de posts] error?');
         }
     }
 }
