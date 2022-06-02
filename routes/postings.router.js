@@ -26,6 +26,41 @@ router.post('/', async (req, res, next) => {                                    
     }
 });
 
+router.get('/:id', async(req, res, next) => {
+    try{
+        let id = req.params.id;
+        let post = await service.findOne(id);
+        res.json(post);
+    } catch (err) {
+        next(err);
+    }
+});
 
+router.patch('/:id', async(req, res, next) => {
+    try{
+        let id = req.params.id;
+        let body = req.body;
+        let myPost = await service.update(id, body);
+        res.json({
+            message: 'Post updated!',
+            data: myPost
+        });
+    } catch (err) {
+        next(err);
+    }
+});
+
+router.delete('/:id', async(req, res, next) => {
+    try{
+        let id = req.params.id;
+        let data = await service.delete(id);
+        res.json({
+            message: 'Post deleted!',
+            id: data,
+        });
+    } catch (err) {
+        next(err);
+    }
+});
 
 module.exports = router;

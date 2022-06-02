@@ -18,7 +18,34 @@ async function getPosts(){
     }
 }
 
+async function getOnePost(id){
+    try{
+        return await Model.findById(id).populate('seller').populate('product').exec();
+    } catch(err) {
+        throw boom.internal('error al obtener un post por id');
+    }
+}
+
+async function updatePost(id, patch){
+    try{
+        return await Model.findByIdAndUpdate(id, patch, { runValidators: true, new: true }).populate('seller').populate('product').exec();
+    } catch (err){
+        throw boom.internal('error al actualizar un post');
+    }
+}
+
+async function deletePost(id){
+    try{
+        return await Model.findByIdAndDelete(id)
+    } catch (err){
+        throw boom.internal('error al eliminar un post');
+    }
+}
+
 module.exports = {
     add: addPost,
     get: getPosts,
+    getOne: getOnePost,
+    update: updatePost,
+    delete: deletePost,
 }

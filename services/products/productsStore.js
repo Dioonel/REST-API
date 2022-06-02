@@ -40,7 +40,7 @@ async function getOneItem(id){
 
 async function updateItem(id, patch){
     try{
-        return await Model.findByIdAndUpdate(id, patch, { runValidators: true });
+        return await Model.findByIdAndUpdate(id, patch, { runValidators: true, new: true });
     } catch (err){
         throw boom.internal('Internal error, please try again later');
     }

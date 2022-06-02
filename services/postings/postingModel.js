@@ -8,15 +8,13 @@ const postingSchema = new Schema({
         required: true,
         ref: 'users',
     },
-    description: {
-        title: {
-            type: String,
-            required: true,
-        },
-        body: {
-            type: String,
-            required: false,
-        }
+    title: {
+        type: String,
+        required: true,
+    },
+    body: {
+        type: String,
+        required: false,
     },
     product: {
         type: mongoose.Types.ObjectId,

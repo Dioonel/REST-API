@@ -36,7 +36,7 @@ async function getOneUserByUsername(username){
 
 async function updateUser(id, patch){
     try{
-        return await Model.findByIdAndUpdate(id, patch, { runValidators: true }).select(['-password']);
+        return await Model.findByIdAndUpdate(id, patch, { runValidators: true, new: true }).select(['-password']);
     } catch (err){
         throw boom.internal('Internal error, please try again later');
     }
