@@ -56,7 +56,7 @@ router.delete('/:id', async(req, res, next) => {
         let data = await service.delete(id);
         res.json({
             message: 'Post deleted!',
-            id: data,
+            id,
         });
     } catch (err) {
         next(err);

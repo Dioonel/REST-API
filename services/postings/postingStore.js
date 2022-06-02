@@ -12,7 +12,11 @@ async function addPost(post){
 
 async function getPosts(){
     try{
-        return await Model.find().populate('seller').populate('product').exec();
+        return await Model.find()
+        .select(['-__v'])
+        .populate({path: 'seller', select: 'username'})
+        .populate({path: 'product', select: 'name price image'})
+        .exec();
     } catch (err) {
         throw boom.internal('error al obtener posts');
     }
@@ -20,7 +24,11 @@ async function getPosts(){
 
 async function getOnePost(id){
     try{
-        return await Model.findById(id).populate('seller').populate('product').exec();
+        return await Model.findById(id)
+        .select(['-__v'])
+        .populate({path: 'seller', select: 'username first_name last_name image contact'})
+        .populate({path: 'product', select: 'name price image'})
+        .exec();
     } catch(err) {
         throw boom.internal('error al obtener un post por id');
     }
@@ -28,7 +36,11 @@ async function getOnePost(id){
 
 async function updatePost(id, patch){
     try{
-        return await Model.findByIdAndUpdate(id, patch, { runValidators: true, new: true }).populate('seller').populate('product').exec();
+        return await Model.findByIdAndUpdate(id, patch, { runValidators: true, new: true })
+        .select(['-__v'])
+        .populate({path: 'seller', select: 'username'})
+        .populate({path: 'product', select: 'name price image'})
+        .exec();
     } catch (err){
         throw boom.internal('error al actualizar un post');
     }
