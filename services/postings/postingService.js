@@ -6,64 +6,91 @@ const commentService = new CommentsService();
 
 class PostingsService {
 
-    async create(data){
-        if(!data){
-            throw boom.badRequest("Can't post empty data.");
+    async create(userId, data){
+        if(!userId || !data){
+            throw boom.badRequest("[Posting Service] - Can't post empty data.");
         }
         try{
-            let myPost = await store.add(data);
-            return myPost;
+            let myPost = {
+                seller: userId,
+                ...data
+            }
+
+            let newPost = await store.add(myPost);
+            return newPost;
         } catch (err) {
-            throw boom.conflict('[controlador de posts] error al crear post');
+            throw boom.conflict('[Posting Service] - Unexpected error.');
         }       
     }
 
-    async find(){
+    async find(){                                                                                  // Get all posts
         try{
             return await store.get();
         } catch (err) {
-            throw boom.conflict('[controlador de posts] error al obtener posts');
+            throw boom.conflict('[Posting Service] - Unexpected error.');
         }    
     }
 
     async findOne(id){
         try{
             if(!id){
-                throw boom.conflict('no metiste ID aweonado');
+                throw boom.conflict('[Posting Service] - No id provided.');
             }
-            return await store.getOne(id);
+            return await store.getOne(id);                                                         // Get a post by id
         } catch (err){
-            throw boom.conflict('[controlador de posts] error al obtener un post por id');
+            throw boom.conflict('[Posting Service] - Unexpected error.');
         }
     } 
 
-    async update(id, patch){
+    async update(userId, postId, patch){
         try {
-            return await store.update(id, patch);
+            if(!userId || !postId || !patch){
+                throw boom.conflict("[Posting Service] - Can't post empty data.");
+            }
+
+            let post = await store.getOne(postId);
+            if(userId == post?.seller?._id){                                                          // Validates user owning that post
+                return await store.update(postId, patch);                                                   // Update a post by id
+            } else {
+                throw boom.unauthorized('[Posting Service] - You are not the owner of this post');
+            }
         } catch (err){
-            throw boom.badRequest('[controlador de posts] error en la sintaxis al actualizar un post');
+            throw boom.conflict('[Posting Service] - Unexpected error.');
         }
     }
 
-    async delete(id){
+    async delete(userId, postId){
         try{
-            return await store.delete(id);
+            if(!userId || !postId){
+                throw boom.conflict("[Posting Service] - Can't post empty data.");
+            }
+
+            let post = await store.getOne(postId);
+            if(userId == post?.seller?._id){                                                            // Validates user owning that post
+                return await store.delete(id);                                                               // Delete a post by id
+            } else {
+                throw boom.unauthorized('[Posting Service] - You are not the owner of this post');
+            } 
         } catch (err) {
-            throw boom.notFound('[controlador de posts] id no encontrada');
+            throw boom.conflict('[Posting Service] - Unexpected error');
         }
     }
+
+
+////////////////////////////////////////////////////// POST - COMMENTS OPERATIONS //////////////////////////////////////////////////////////////
+
 
     async addCommentToPost(userId, postId, comment){
         try{
             let post = await store.getOne(postId);
             
-            if(post?._id == postId){
+            if(post?._id == postId){                                                              // Validates if the post exists or not
                 return await commentService.create(userId, postId, comment);
             } else {
-                throw boom.notFound('[controlador de posts] no puedes agregar un comentario a un post que no existe');
+                throw boom.notFound("[Posting Service] - Can't push a comment if the post doesn't exist.");
             }
         } catch (err){
-            throw boom.internal('[controlador de posts] error?');
+            throw boom.conflict('[Posting Service] - Unexpected error.');
         }
     }
 }

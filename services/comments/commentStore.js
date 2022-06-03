@@ -5,42 +5,38 @@ const postingModel = require('../postings/postingStore');
 async function addComment(comment){
     try{
         const myComment = new Model(comment);
-        let newComment = await myComment.save();
+        let newComment = await myComment.save();                                                        // Create a new comment
 
-        return await postingModel.addComment(newComment.post, newComment);
+        return await postingModel.addComment(newComment.post, newComment);                              // Push the new comment into its post
     } catch (err) {
-        throw boom.internal('error al añadir un comentario');
+        throw boom.internal('[Comment Store] - Internal error 1');
     }
 }
 
 async function getOneComment(id){
     try{
-        return await Model.findById(id);
+        return await Model.findById(id);                                                                // Find one comment by id
     } catch (err){
-        throw boom.internal('error al buscar un comentario por id');
+        throw boom.internal('[Comment Store] - Internal error 2');
     }
 }
 
 async function updateComment(id, patch){
     try{
-        let updatedComment = await Model.findByIdAndUpdate(id, patch, { runValidators: true, new: true });
+        let updatedComment = await Model.findByIdAndUpdate(id, patch, { runValidators: true, new: true });        // Update a comment
         return updatedComment;
     } catch (err){
-        throw boom.internal('error al actualizar un comentario');
+        throw boom.internal('[Comment Store] - Internal error 3');
     }
 }
 
-async function deleteComment(comment){
+async function deleteComment(id){
     try{
-        if(!comment || !comment._id){
-            throw boom.notFound('comentario no existe qliao');
-        }
-
-        let deletedComment = await Model.findByIdAndDelete(comment._id);
-        return await postingModel.deleteComment(comment.post, comment._id);
+        let deletedComment = await Model.findByIdAndDelete(id);                                     // Delete a comment by id
+        return await postingModel.deleteComment(deletedComment.post, id);                           // Delete comment reference from its post
             
     } catch (err){
-        throw boom.internal('error al eliminar un comentario');
+        throw boom.internal('[Comment Store] - Internal error 4');
     }
 }
 

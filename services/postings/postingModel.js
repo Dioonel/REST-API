@@ -7,6 +7,7 @@ const postingSchema = new Schema({
         type: mongoose.Types.ObjectId,
         required: true,
         ref: 'users',
+        immutable: true,
     },
     title: {
         type: String,
@@ -20,12 +21,19 @@ const postingSchema = new Schema({
         type: mongoose.Types.ObjectId,
         required: true,
         ref: 'products',
+        immutable: true
     },
     comments: [{
         type: mongoose.Types.ObjectId,
         required: false,
         ref: 'comments',
-    }]
+    }],
+    created_at: {
+        type: Date,
+        default: Date.now,
+        required: true,
+        immutable: true,
+    }
 });
 
 const model = mongoose.model('postings', postingSchema);

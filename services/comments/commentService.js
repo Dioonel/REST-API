@@ -6,50 +6,54 @@ class CommentsService {
     async create(userId, postId, text){
         try{
             if(!text?.text || !userId || !postId){
-                throw boom.badRequest("Can't post empty data.");
+                throw boom.badRequest("[Comment Service] - Can't post empty data.");
             }
 
-            let comment = {
+            let comment = {                                                                            // Creates a comment object
                 author: userId,
                 post: postId,
-                body: text.text,
+                text: text.text,
             }
 
             let myComment = await store.add(comment);
             return myComment;
         } catch (err) {
-            throw boom.conflict('[controlador de comentarios] error al crear un comentario');
+            throw boom.conflict('[Comment Service] - Unexpected error.');
         }       
     }
+    
 
     async update(userId, commentId, patch){
         try {
             let myComment = await store.getOne(commentId);
-            console.log(myComment);
-            if(userId == String(myComment.author)){
-                if(patch?.body){
+
+            if(userId == String(myComment.author)){                                                     // Validates user owning that comment
+                if(patch?.text){                                                                        // Validates data format
                     return await store.update(commentId, patch);
                 } else {
-                    throw boom.badRequest('[controlador de comentarios] ???????');
+                    throw boom.badRequest('[Comment Service] - Wrong data.');
                 }     
             } else {
-                throw boom.unauthorized('[controlador de comentarios] no puedes actualizar un comentario si no eres el creador del mismo');
+                throw boom.unauthorized('[Comment Service] - You are not the owner of this comment.');
             }
         } catch (err){
-            throw boom.badRequest('[controlador de comentarios] error en la sintaxis al actualizar un comentario');
+            throw boom.conflict('[Comment Service] - Unexpected error.');
         }
     }
+
 
     async delete(userId, commentId){
         try{
             let myComment = await store.getOne(commentId);
-            if(userId == String(myComment.author)){
-                return await store.delete(myComment);
+
+            if(userId == String(myComment.author)){                                                     // Validates user owning that comment
+                console.log('??');
+                return await store.delete(commentId);
             } else {
-                throw boom.unauthorized('[controlador de comentarios] no puedes eliminar un comentario si no eres el creador del mismo');
+                throw boom.unauthorized('[Comment Service] - You are not the owner of this comment.');
             }
         } catch (err) {
-            throw boom.notFound('[controlador de comentarios] id no encontrada');
+            throw boom.notFound('[Comment Service] - Comment not found.');
         }
     }
 }
