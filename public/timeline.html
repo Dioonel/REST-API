@@ -21,7 +21,22 @@
             <li><a href="https://twitter.com/SuspenDioo">Contact us</a></li>
             <li><a href="#" class="nav-item">Your cart</a></li>
         </ul>
-    </nav>
+    </nav> <br/>
+
+
+    <span class="btn-span" id="enableCreate" onclick="enableCreate()">Create a post</span> <br/><br/>
+    <div class="divPost">
+        <form id="formPost" onsubmit="createPosting(); return false">
+            <br/>
+            <input type="text" id="post-title-create" placeholder="Title..." required> <br/>
+            <textarea type="text" id="post-body-create" placeholder="Description..."></textarea> <br/>
+            <input type="text" id="product-item-create" placeholder="Item..." required> <input type="number" id="product-price-create" placeholder="Set a price..." required>
+            <input type="url" id="product-image-create" placeholder="Image URL..." required> <input type="submit" value="Create"> <span class="postMsg"></span><span class="showRes"></span>
+        </form>
+    </div>
+    <br/><br/>
+
+
     <h1 class="main-header">TIMELINE</h1>
     
     <br/>

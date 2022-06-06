@@ -37,7 +37,6 @@ class PostingsService {
                 skip = null;
             }
 
-            console.log(limit, skip);
             return await store.get(limit, skip);
         } catch (err) {
             throw boom.conflict('[Posting Service] - Unexpected error.');

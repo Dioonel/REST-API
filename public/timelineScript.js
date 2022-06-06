@@ -1,7 +1,7 @@
 const POSTINGS_URL = 'http://localhost:8080/api/postings';
 
 document.addEventListener('DOMContentLoaded', async () => {
-    const postings = await searchPosts(`${POSTINGS_URL}?limit=5`);
+    const postings = await searchPosts(`${POSTINGS_URL}?`);
     console.log(postings);
     for(let post of postings){
         pushPosts(post);
@@ -28,4 +28,65 @@ function pushPosts(post){
         <h4 class="post-price">$${post?.product?.price || "?"}</h4>
     </div>
 </div>`;
+}
+
+
+function enableCreate(){
+    const div = document.querySelector('.divPost');
+
+    if(div.style.display == 'block'){
+        div.style.display = 'none';
+    } else {
+        div.style.display = 'block';
+    }
+}
+
+
+async function createPosting(){
+    let product = {
+        name: document.getElementById('product-item-create').value,
+        price: document.getElementById('product-price-create').value,
+        image: document.getElementById('product-image-create').value,
+    }
+
+    product = JSON.stringify(product);
+
+    let responseProduct = await executeProduct('http://localhost:8080/api/products', product);
+    console.log(responseProduct);
+
+    if(responseProduct?.created == true){
+        let posting = {
+            title: document.getElementById('post-title-create').value,
+            body: document.getElementById('post-body-create').value,
+            product: responseProduct.data._id,
+        }
+
+        posting = JSON.stringify(posting);
+
+        let responsePosting = await executePosting('http://localhost:8080/api/postings', posting);
+        location.reload();
+    }
+}
+
+
+async function executeProduct(url, product){
+    let res = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: product,
+    });
+    return res.json();
+}
+
+async function executePosting(url, posting){
+    let res = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: posting,
+    });
+    return res.json();
 }

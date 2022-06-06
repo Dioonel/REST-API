@@ -20,6 +20,7 @@ router.post('/', async (req, res, next) => {                                    
         body = await service.create(body);
         res.status(201).json({
             message: 'Item created!',
+            created: true,
             data: body,
         });
     } catch (err){

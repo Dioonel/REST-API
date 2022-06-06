@@ -206,3 +206,12 @@ select {
     margin-bottom: 20px;
     text-overflow: ellipsis;
 }
+
+#post-title-create{
+    width: 400px;
+}
+
+#post-body-create{
+    width: 400px;
+    height: 150px;
+}
