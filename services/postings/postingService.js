@@ -23,9 +23,22 @@ class PostingsService {
         }       
     }
 
-    async find(){                                                                                  // Get all posts
+    async find(limit, skip){                                                                                  // Get all posts
         try{
-            return await store.get();
+            if(!isNaN(parseInt(limit))){
+                limit = parseInt(limit);                                                                      // Parsing limit if necessary
+            } else {
+                limit = null;
+            }
+
+            if(!isNaN(parseInt(skip))){
+                skip = parseInt(skip);                                                                        // Parsing skip if necessary
+            } else {
+                skip = null;
+            }
+
+            console.log(limit, skip);
+            return await store.get(limit, skip);
         } catch (err) {
             throw boom.conflict('[Posting Service] - Unexpected error.');
         }    
@@ -36,7 +49,7 @@ class PostingsService {
             if(!id){
                 throw boom.conflict('[Posting Service] - No id provided.');
             }
-            return await store.getOne(id);                                                         // Get a post by id
+            return await store.getOne(id);                                                              // Get a post by id
         } catch (err){
             throw boom.conflict('[Posting Service] - Unexpected error.');
         }

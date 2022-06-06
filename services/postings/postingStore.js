@@ -10,10 +10,12 @@ async function addPost(post){
     }
 }
 
-async function getPosts(){
+async function getPosts(limit, skip){
     try{
         return await Model.find()                                                                   // Get all posts
         .select(['-__v'])
+        .limit(limit)
+        .skip((limit || 1) * skip)
         .populate({path: 'seller', select: 'username'})                                             // Populate user ref (seller)
         .populate({path: 'product', select: 'name price image'})                                    // Populate product ref
         .populate({path: 'comments', select: 'author text', populate: {path: 'author', model: 'users', select: 'username image'}})

@@ -6,6 +6,7 @@ const loginRouter = require("./login.router");
 const registerRouter = require("./register.router");
 const myProfileRouter = require("./my-profile.router");
 const postingsRouter = require("./postings.router");
+const timelineRouter = require("./timeline.router");
 
 function routerAPI(app){
     app.use('/products', productsIndexRouter);
@@ -15,7 +16,8 @@ function routerAPI(app){
     app.use('/login', loginRouter);
     app.use('/register', registerRouter);
     app.use('/my-profile', myProfileRouter);
-    app.use('/timeline', postingsRouter);
+    app.use('/api/postings', postingsRouter);
+    app.use('/timeline', timelineRouter);
 }
 
 module.exports = routerAPI;
