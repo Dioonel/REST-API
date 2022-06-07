@@ -31,7 +31,7 @@ async function getOnePost(id){
         .select(['-__v'])
         .populate({path: 'seller', select: 'username first_name last_name image contact'})          // Populate user ref (seller) (detailed)
         .populate({path: 'product', select: 'name price image'})
-        .populate({path: 'comments', select: 'author text', populate: {path: 'author', model: 'users', select: 'username image'}})
+        .populate({path: 'comments', select: 'author text created_at', populate: {path: 'author', model: 'users', select: 'username image'}})
         .exec();
     } catch(err) {
         throw boom.internal('[Posting Store] - Internal error 3');

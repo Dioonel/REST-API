@@ -9,8 +9,10 @@ router.get('/',
         res.sendFile(path.resolve('./public/timeline.html'));
 });
 
-router.get('/:foo', (req, res) => {
-    res.status(404).send('Route not found.');
+router.get('/:id',
+    passport.authenticate('jwt', {session: false}),
+    (req, res) => {
+        res.sendFile(path.resolve('./public/detailed-post.html'));
 });
 
 module.exports = router;

@@ -1,8 +1,13 @@
 const POSTINGS_URL = 'http://localhost:8080/api/postings';
+const username = ('; '+document.cookie).split(`; username=`).pop().split(';')[0];
 
 document.addEventListener('DOMContentLoaded', async () => {
+    if(username){
+        let myProfile = document.getElementById('nav-my-user');
+        myProfile.innerHTML = `${username}`;
+    }
+    
     const postings = await searchPosts(`${POSTINGS_URL}?`);
-    console.log(postings);
     for(let post of postings){
         pushPosts(post);
     }
@@ -20,9 +25,9 @@ async function searchPosts(url){
 
 function pushPosts(post){
     let myBody = document.querySelector('.full-body-div');
-
+    console.log(post)
     myBody.innerHTML += `<div class="post-parent-div">
-    <div class="post-inner-div">
+    <div class="post-inner-div" onclick="getDetailedPost('${post._id}')">
         <img src="${post?.product?.image || ""}" class=post-img>
         <h3 class="post-title">${post.title}</h3>
         <h4 class="post-price">$${post?.product?.price || "?"}</h4>
@@ -89,4 +94,8 @@ async function executePosting(url, posting){
         body: posting,
     });
     return res.json();
+}
+
+function getDetailedPost(myId){
+    location.href = `http://localhost:8080/timeline/${myId}`;
 }

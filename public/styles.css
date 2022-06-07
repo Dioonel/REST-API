@@ -181,6 +181,7 @@ select {
 .post-inner-div{
     margin: 0px;
     float: left;
+    cursor: pointer;
 }
 
 .post-img{
@@ -214,4 +215,103 @@ select {
 #post-body-create{
     width: 400px;
     height: 150px;
+}
+
+ul{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+
+}
+
+li{
+    float: left;
+}
+
+.nav-item{
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.nav-item:hover{
+    background-color: #111;
+}
+
+.full-img{
+    height: 500px;
+    width: 500px;
+    border: 1px solid black;
+    float: left;
+}
+
+.detailed-product-title{
+    text-align: center;
+    margin: 0px 250px;
+    font-weight: bold;
+    font-size: 28px;
+}
+
+.detailed-price{
+    font-size: 32px;
+    text-align: center;
+}
+
+.detailed-seller{
+    font-size: 20px;
+    text-align: center;
+}
+
+.detailed-description-div{
+    margin: 5px;
+}
+
+.detailed-description-text{
+    text-align: left;
+    resize: none;
+}
+
+.comment-user-img{
+    height: 60px;
+    width: 60px;
+    border: 1px solid black;
+    float: left;
+}
+
+.comment{
+    overflow: auto;
+    margin: 20px 5px;
+}
+
+.comment-body{
+    margin: 0px 10px;
+    float: left;
+    display: block;
+}
+
+.comment-username{
+    display: block;
+    float: left;
+    margin: 0px 10px;
+    font-weight: bold;
+}
+
+.comment-date{
+    display: block;
+    float: left;
+    margin: 0px 25px;
+    opacity: 50%;
+    font-size: 14px;
+}
+
+.addCommentText{
+    resize: none;
 }
