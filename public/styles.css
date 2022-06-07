@@ -215,6 +215,7 @@ select {
 #post-body-create{
     width: 400px;
     height: 150px;
+    resize: none;
 }
 
 ul{

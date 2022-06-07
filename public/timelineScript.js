@@ -25,7 +25,6 @@ async function searchPosts(url){
 
 function pushPosts(post){
     let myBody = document.querySelector('.full-body-div');
-    console.log(post)
     myBody.innerHTML += `<div class="post-parent-div">
     <div class="post-inner-div" onclick="getDetailedPost('${post._id}')">
         <img src="${post?.product?.image || ""}" class=post-img>
@@ -57,7 +56,6 @@ async function createPosting(){
     product = JSON.stringify(product);
 
     let responseProduct = await executeProduct('http://localhost:8080/api/products', product);
-    console.log(responseProduct);
 
     if(responseProduct?.created == true){
         let posting = {
