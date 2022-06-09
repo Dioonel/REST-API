@@ -10,11 +10,29 @@ document.addEventListener('DOMContentLoaded', async () => {
         let myProfile = document.getElementById('nav-my-user');
         myProfile.innerHTML = `${username}`;
     }
-    //const query = window.location.search.split('?')[1].split('&');
-    //console.log(query);
     const postings = await searchPosts(`${POSTINGS_URL}${window.location.search}`);
     for(let post of postings){
         pushPosts(post);
+    }
+
+    try{
+        const query = window.location.search.split('?')[1].split('&');
+        for(let param of query){
+            if(['sortBy=name', 'sortBy=price'].includes(param)){
+                let sortByDefault = document.getElementById('filterSortBy');
+                sortByDefault.value = param.split('sortBy=')[1];
+                sortByDefault.selected = true;
+                sortByDefault.defaultSelected = true;
+            }
+            if(['sortWay=-1', 'sortWay=desc', 'sortWay=descending'].includes(param)){
+                let sortWayDefault = document.getElementById('filterSortWay');
+                sortWayDefault.value = param.split('sortWay=')[1];
+                sortWayDefault.selected = true;
+                sortWayDefault.defaultSelected = true;
+            }
+        }
+    } catch (err) {
+        return false;
     }
 });
 

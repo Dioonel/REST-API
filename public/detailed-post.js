@@ -1,13 +1,11 @@
 const TIMELINE_URL = 'http://localhost:8080/timeline';
-const BASE_URL = `http://localhost:8080/api/postings`;
+const POSTINGS_URL = `http://localhost:8080/api/postings`;
 const username = ('; '+document.cookie).split(`; username=`).pop().split(';')[0];
 const user_id = ('; '+document.cookie).split(`; id=`).pop().split(';')[0];
 let postId = window.location.pathname.split('/timeline')[1];
 
 document.getElementById('formSearchBar').addEventListener('submit', executeSearchBar);
-
-let addCommentForm = document.getElementById('addCommentForm');
-addCommentForm.addEventListener('submit', createComment);
+document.getElementById('addCommentForm').addEventListener('submit', createComment);
 
 document.addEventListener('DOMContentLoaded', async () => {
     if(username){
@@ -15,7 +13,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         myProfile.innerHTML = `${username}`;
     }
 
-    let postInfo = await executeSearch(`${BASE_URL}/${postId}`);
+    let postInfo = await executeSearch(`${POSTINGS_URL}/${postId}`);
     
     makePostingHTML(postInfo);
     pushComments(postInfo.comments);

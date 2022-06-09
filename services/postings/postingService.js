@@ -1,5 +1,6 @@
 const boom = require('@hapi/boom');
 const store = require('./postingStore');
+const { toLower } = require('lodash');
 
 const CommentsService = require('../comments/commentService');
 const commentService = new CommentsService();
@@ -47,7 +48,7 @@ class PostingsService {
 
 
             if(query?.sortBy){
-                if(['price'].includes(query.sortBy)){                                           // Only declaring sortBy if its a valid field
+                if(['price', 'name'].includes(query.sortBy)){                                     // Only declaring sortBy if its a valid field
                     filter = {...filter, sortBy: query.sortBy};
                 }
             }
@@ -64,6 +65,10 @@ class PostingsService {
                     switch (filter.sortBy){
                         case 'price':                                                                                  // Sort by price case
                             return parseInt(a.product.price) - parseInt(b.product.price);
+                            break;
+
+                        case 'name':                                                                                   // Sort by name case
+                            return String(toLower(a.title)).localeCompare(String(toLower(b.title)));
                             break;
                     }
                 });

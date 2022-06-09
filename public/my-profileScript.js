@@ -1,8 +1,7 @@
 const id = ('; '+document.cookie).split(`; id=`).pop().split(';')[0];
 const URL = `http://localhost:8080/api/users/${id}`;
 
-const imagePatch = document.getElementById('ppicPatch');
-imagePatch.addEventListener('change', thumbnailPreview);
+document.getElementById('ppicPatch').addEventListener('change', thumbnailPreview);
 
 window.addEventListener('DOMContentLoaded', async () => {
     const res = await fetchUserData(URL);
