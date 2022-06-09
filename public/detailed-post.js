@@ -1,7 +1,10 @@
+const TIMELINE_URL = 'http://localhost:8080/timeline';
 const BASE_URL = `http://localhost:8080/api/postings`;
 const username = ('; '+document.cookie).split(`; username=`).pop().split(';')[0];
 const user_id = ('; '+document.cookie).split(`; id=`).pop().split(';')[0];
 let postId = window.location.pathname.split('/timeline')[1];
+
+document.getElementById('formSearchBar').addEventListener('submit', executeSearchBar);
 
 let addCommentForm = document.getElementById('addCommentForm');
 addCommentForm.addEventListener('submit', createComment);
@@ -81,4 +84,43 @@ async function executeAddComment(url, obj){
         body: obj,
     });
     return res.json();
+}
+
+async function executeSearchBar(){
+    let keywords = document.getElementById('searchBar').value;
+
+    if(keywords.trim()){
+        let data = {
+            name: keywords.trim(),
+            //min_price: document.getElementById().value,
+            //max_price: document.getElementById().value,
+        }
+
+        location.href = filterURLMaker(data);
+    }
+}
+
+function filterURLMaker(data){
+    let filterURL = `${TIMELINE_URL}?`;
+
+    if(data.name){
+        filterURL += `name=${data.name}&`;
+    }
+    if(data.min_price){
+        filterURL += `min_price=${data.min_price}&`;
+    }
+    if(data.max_price){
+        filterURL += `max_price=${data.max_price}&`;
+    }
+    if(data.quantity){
+        filterURL += `quantity=${data.quantity}&`;
+    }
+    if(data.sortBy){
+        filterURL += `sortBy=${data.sortBy}&`;
+    }
+    if(data.sortWay){
+        filterURL += `sortWay=${data.sortWay}&`;
+    }
+
+    return filterURL;
 }

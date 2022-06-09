@@ -1,5 +1,6 @@
 const Model = require('./postingModel');
 const boom = require('@hapi/boom');
+const productStore = require('./../products/productsStore');
 
 async function addPost(post){
     try{
@@ -10,20 +11,31 @@ async function addPost(post){
     }
 }
 
-async function getPosts(limit, skip){
+async function getPosts(filter){
     try{
-        return await Model.find()                                                                   // Get all posts
-        .select(['-__v'])
-        .limit(limit)
-        .skip((limit || 1) * skip)
-        .populate({path: 'seller', select: 'username'})                                             // Populate user ref (seller)
-        .populate({path: 'product', select: 'name price image'})                                    // Populate product ref
-        .populate({path: 'comments', select: 'author text', populate: {path: 'author', model: 'users', select: 'username image'}})
-        .exec();                                                                    // Populate comments, and populate user ref inside comments
+        if(filter){
+            let products = await productStore.get(filter)                                  // Call products store and get the filtered products
+            let filteredProductsIds = products.map((product) => product._id);              // Get an array of ids out of the filtered products
+            
+            return await Model.find({product: {$in: filteredProductsIds}})              // Find posts by filtered id of products, then populate
+            .select(['-__v'])
+            .populate({path: 'seller', select: 'username'})
+            .populate({path: 'product', select: 'name price image'})
+            .populate({path: 'comments', select: 'author text', populate: {path: 'author', model: 'users', select: 'username image'}})
+            .exec();
+        } else {
+            return await Model.find()                                                                   // Get all posts (STANDARD)
+            .select(['-__v'])
+            .limit(15)
+            .populate({path: 'seller', select: 'username'})                                             // Populate user ref (seller)
+            .populate({path: 'product', select: 'name price image'})                                    // Populate product ref
+            .populate({path: 'comments', select: 'author text', populate: {path: 'author', model: 'users', select: 'username image'}})
+            .exec();                                                                    // Populate comments, and populate user ref inside comments
+        }
     } catch (err) {
         throw boom.internal('[Posting Store] - Internal error 2');
     }
-}
+} 
 
 async function getOnePost(id){
     try{

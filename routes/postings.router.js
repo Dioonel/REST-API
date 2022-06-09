@@ -9,9 +9,7 @@ const router = express.Router();
 
 router.get('/', async (req, res, next) => {                                                           // GET all posts
     try {
-        let limit = req.query.limit;
-        let skip = req.query.skip;
-        const posts = await service.find(limit || null, skip || null);
+        const posts = await service.find(req.query);
         res.json(posts);
     } catch(err){
         next(err);

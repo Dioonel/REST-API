@@ -1,13 +1,18 @@
+const TIMELINE_URL = 'http://localhost:8080/timeline';
 const POSTINGS_URL = 'http://localhost:8080/api/postings';
 const username = ('; '+document.cookie).split(`; username=`).pop().split(';')[0];
+
+document.getElementById('formSearchBar').addEventListener('submit', executeSearchBar);
+document.getElementById('filterForm').addEventListener('submit', executeFilter);
 
 document.addEventListener('DOMContentLoaded', async () => {
     if(username){
         let myProfile = document.getElementById('nav-my-user');
         myProfile.innerHTML = `${username}`;
     }
-    
-    const postings = await searchPosts(`${POSTINGS_URL}?`);
+    //const query = window.location.search.split('?')[1].split('&');
+    //console.log(query);
+    const postings = await searchPosts(`${POSTINGS_URL}${window.location.search}`);
     for(let post of postings){
         pushPosts(post);
     }
@@ -96,4 +101,63 @@ async function executePosting(url, posting){
 
 function getDetailedPost(myId){
     location.href = `http://localhost:8080/timeline/${myId}`;
+}
+
+async function executeSearchBar(){
+    let keywords = document.getElementById('searchBar').value;
+
+    if(keywords.trim()){
+        let data = {
+            name: keywords.trim(),
+            //min_price: document.getElementById().value,
+            //max_price: document.getElementById().value,
+        }
+
+        location.href = filterURLMaker(data);
+    }
+}
+
+function filterURLMaker(data){
+    let filterURL = `${TIMELINE_URL}?`;
+
+    if(data.name){
+        filterURL += `name=${data.name}&`;
+    }
+    if(data.min_price){
+        filterURL += `min_price=${data.min_price}&`;
+    }
+    if(data.max_price){
+        filterURL += `max_price=${data.max_price}&`;
+    }
+    if(data.quantity){
+        filterURL += `quantity=${data.quantity}&`;
+    }
+    if(data.sortBy){
+        filterURL += `sortBy=${data.sortBy}&`;
+    }
+    if(data.sortWay){
+        filterURL += `sortWay=${data.sortWay}&`;
+    }
+
+    return filterURL;
+}
+
+async function executeFilter(){
+    let sortBy = document.getElementById('filterSortBy').value;
+    let sortWay = document.getElementById('filterSortWay').value;
+
+    let url = String(window.location.href).split('sortBy')[0].split('sortWay')[0];
+    if(url[url.length - 1] !== '?' && url[url.length - 1] !== '&'){
+        url += '?';
+    }
+
+    let filterQuery = '';
+    if(sortBy){
+        filterQuery += `sortBy=${sortBy}&`;
+    }
+    if(sortWay){
+        filterQuery += `sortWay=${sortWay}`;
+    }
+
+    window.location.href = url + filterQuery;
 }

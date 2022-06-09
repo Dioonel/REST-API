@@ -23,21 +23,57 @@ class PostingsService {
         }       
     }
 
-    async find(limit, skip){                                                                                  // Get all posts
+    async find(query){
         try{
-            if(!isNaN(parseInt(limit))){
-                limit = parseInt(limit);                                                                      // Parsing limit if necessary
-            } else {
-                limit = null;
+            let filter = null;
+
+            if(query?.name){
+                filter = {...filter, name: query.name};
+            }
+            if(query?.min_price){
+                filter = {...filter, min_price: query.min_price};
+            }
+            if(query?.max_price){
+                filter = {...filter, max_price: query.max_price}; 
             }
 
-            if(!isNaN(parseInt(skip))){
-                skip = parseInt(skip);                                                                        // Parsing skip if necessary
-            } else {
-                skip = null;
+            if(!isNaN(parseInt(query?.limit))){
+                filter = {...filter, limit: Math.abs(parseInt(query.limit))};                                   // Parsing limit if necessary
             }
 
-            return await store.get(limit, skip);
+            if(!isNaN(parseInt(query?.skip))){
+                filter = {...filter, skip: Math.abs(parseInt(query.skip))};                                     // Parsing skip if necessary
+            }
+
+
+            if(query?.sortBy){
+                if(['price'].includes(query.sortBy)){                                           // Only declaring sortBy if its a valid field
+                    filter = {...filter, sortBy: query.sortBy};
+                }
+            }
+            if(query?.sortWay){                                                                 // Only declaring sortWay for reverse operations
+                if([-1, '-1', 'desc', 'descending'].includes(query.sortWay)){
+                    filter = {...filter, sortWay: query.sortWay};
+                }
+            }
+
+            let posts = await store.get(filter);                                                                       // Get all posts
+
+            if(filter?.sortBy){
+                posts.sort((a, b) => {
+                    switch (filter.sortBy){
+                        case 'price':                                                                                  // Sort by price case
+                            return parseInt(a.product.price) - parseInt(b.product.price);
+                            break;
+                    }
+                });
+            }
+
+            if(filter?.sortWay){                                                                                       // If sortWay, reverse()
+                posts.reverse();
+            }
+
+            return posts;
         } catch (err) {
             throw boom.conflict('[Posting Service] - Unexpected error.');
         }    
