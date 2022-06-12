@@ -17,7 +17,9 @@ async function getPosts(filter){
             let products = await productStore.get(filter)                                  // Call products store and get the filtered products
             let filteredProductsIds = products.map((product) => product._id);              // Get an array of ids out of the filtered products
             
-            return await Model.find({product: {$in: filteredProductsIds}})              // Find posts by filtered id of products, then populate
+            return await Model.find({$and: [
+                {title: {$regex: filter.name || '', $exists: true, $options: 'i'}}, // Find posts by title regex
+                {product: {$in: filteredProductsIds}}]})                            // Find posts by filtered id of products, then populate
             .select(['-__v'])
             .populate({path: 'seller', select: 'username'})
             .populate({path: 'product', select: 'name price image'})
@@ -26,7 +28,7 @@ async function getPosts(filter){
         } else {
             return await Model.find()                                                                   // Get all posts (STANDARD)
             .select(['-__v'])
-            .limit(15)
+            .limit(21)
             .populate({path: 'seller', select: 'username'})                                             // Populate user ref (seller)
             .populate({path: 'product', select: 'name price image'})                                    // Populate product ref
             .populate({path: 'comments', select: 'author text', populate: {path: 'author', model: 'users', select: 'username image'}})

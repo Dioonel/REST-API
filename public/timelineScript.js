@@ -1,21 +1,22 @@
 const TIMELINE_URL = 'http://localhost:8080/timeline';
 const POSTINGS_URL = 'http://localhost:8080/api/postings';
-const username = ('; '+document.cookie).split(`; username=`).pop().split(';')[0];
+const username = ('; '+document.cookie).split(`; username=`).pop().split(';')[0];                       // Gets the username
 
 document.getElementById('formSearchBar').addEventListener('submit', executeSearchBar);
-document.getElementById('filterForm').addEventListener('submit', executeFilter);
+document.getElementById('sortingForm').addEventListener('submit', executeSorting);
 
 document.addEventListener('DOMContentLoaded', async () => {
-    if(username){
+    if(username){                                                                                       // Displays de username in the nav
         let myProfile = document.getElementById('nav-my-user');
         myProfile.innerHTML = `${username}`;
     }
-    const postings = await searchPosts(`${POSTINGS_URL}${window.location.search}`);
-    for(let post of postings){
+
+    const postings = await searchPosts(`${POSTINGS_URL}${window.location.search}`);                 // Fetch the all the posts (query supported)
+    for(let post of postings){                                                                      // Pushes the posts into the HTML div
         pushPosts(post);
     }
 
-    try{
+    try{                                                                                            // Setting-up sorting fields selected values
         const query = window.location.search.split('?')[1].split('&');
         for(let param of query){
             if(['sortBy=name', 'sortBy=price'].includes(param)){
@@ -36,7 +37,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
-async function searchPosts(url){
+async function searchPosts(url){                                                                        // Fetch posts
     const res = await fetch(url, {
         method: 'GET',
         headers: {
@@ -46,7 +47,7 @@ async function searchPosts(url){
     return res.json();
 }
 
-function pushPosts(post){
+function pushPosts(post){                                                                              // Populating the timeline with the posts
     let myBody = document.querySelector('.full-body-div');
     myBody.innerHTML += `<div class="post-parent-div">
     <div class="post-inner-div" onclick="getDetailedPost('${post._id}')">
@@ -57,71 +58,11 @@ function pushPosts(post){
 </div>`;
 }
 
-
-function enableCreate(){
-    const div = document.querySelector('.divPost');
-
-    if(div.style.display == 'block'){
-        div.style.display = 'none';
-    } else {
-        div.style.display = 'block';
-    }
-}
-
-
-async function createPosting(){
-    let product = {
-        name: document.getElementById('product-item-create').value,
-        price: document.getElementById('product-price-create').value,
-        image: document.getElementById('product-image-create').value,
-    }
-
-    product = JSON.stringify(product);
-
-    let responseProduct = await executeProduct('http://localhost:8080/api/products', product);
-
-    if(responseProduct?.created == true){
-        let posting = {
-            title: document.getElementById('post-title-create').value,
-            body: document.getElementById('post-body-create').value,
-            product: responseProduct.data._id,
-        }
-
-        posting = JSON.stringify(posting);
-
-        let responsePosting = await executePosting('http://localhost:8080/api/postings', posting);
-        location.reload();
-    }
-}
-
-
-async function executeProduct(url, product){
-    let res = await fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: product,
-    });
-    return res.json();
-}
-
-async function executePosting(url, posting){
-    let res = await fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: posting,
-    });
-    return res.json();
-}
-
 function getDetailedPost(myId){
     location.href = `http://localhost:8080/timeline/${myId}`;
 }
 
-async function executeSearchBar(){
+async function executeSearchBar(){                                                                     // Search bar functionality
     let keywords = document.getElementById('searchBar').value;
 
     if(keywords.trim()){
@@ -135,32 +76,32 @@ async function executeSearchBar(){
     }
 }
 
-function filterURLMaker(data){
+function filterURLMaker(data){                                                        // Making the URL with filters (only search bar supported)
     let filterURL = `${TIMELINE_URL}?`;
 
     if(data.name){
         filterURL += `name=${data.name}&`;
     }
-    if(data.min_price){
-        filterURL += `min_price=${data.min_price}&`;
-    }
-    if(data.max_price){
-        filterURL += `max_price=${data.max_price}&`;
-    }
-    if(data.quantity){
-        filterURL += `quantity=${data.quantity}&`;
-    }
-    if(data.sortBy){
-        filterURL += `sortBy=${data.sortBy}&`;
-    }
-    if(data.sortWay){
-        filterURL += `sortWay=${data.sortWay}&`;
-    }
+    // if(data.min_price){
+    //     filterURL += `min_price=${data.min_price}&`;
+    // }
+    // if(data.max_price){
+    //     filterURL += `max_price=${data.max_price}&`;
+    // }
+    // if(data.quantity){
+    //     filterURL += `quantity=${data.quantity}&`;
+    // }
+    // if(data.sortBy){
+    //     filterURL += `sortBy=${data.sortBy}&`;
+    // }
+    // if(data.sortWay){
+    //     filterURL += `sortWay=${data.sortWay}&`;
+    // }
 
     return filterURL;
 }
 
-async function executeFilter(){
+async function executeSorting(){                                                                     // Sorting functionality
     let sortBy = document.getElementById('filterSortBy').value;
     let sortWay = document.getElementById('filterSortWay').value;
 

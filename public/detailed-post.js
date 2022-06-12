@@ -14,6 +14,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     let postInfo = await executeSearch(`${POSTINGS_URL}/${postId}`);
+    if(postInfo?.statusCode === 409){
+        location.href = TIMELINE_URL;
+    }
     
     makePostingHTML(postInfo);
     pushComments(postInfo.comments);
@@ -104,21 +107,21 @@ function filterURLMaker(data){
     if(data.name){
         filterURL += `name=${data.name}&`;
     }
-    if(data.min_price){
-        filterURL += `min_price=${data.min_price}&`;
-    }
-    if(data.max_price){
-        filterURL += `max_price=${data.max_price}&`;
-    }
-    if(data.quantity){
-        filterURL += `quantity=${data.quantity}&`;
-    }
-    if(data.sortBy){
-        filterURL += `sortBy=${data.sortBy}&`;
-    }
-    if(data.sortWay){
-        filterURL += `sortWay=${data.sortWay}&`;
-    }
+    // if(data.min_price){
+    //     filterURL += `min_price=${data.min_price}&`;
+    // }
+    // if(data.max_price){
+    //     filterURL += `max_price=${data.max_price}&`;
+    // }
+    // if(data.quantity){
+    //     filterURL += `quantity=${data.quantity}&`;
+    // }
+    // if(data.sortBy){
+    //     filterURL += `sortBy=${data.sortBy}&`;
+    // }
+    // if(data.sortWay){
+    //     filterURL += `sortWay=${data.sortWay}&`;
+    // }
 
     return filterURL;
 }

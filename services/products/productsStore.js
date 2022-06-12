@@ -16,7 +16,7 @@ async function getItems(filter){
     try{
         if(filter){
             return await Model.find({$and: [
-                {name: {$regex: filter.name || '', $exists: true, $options: 'i'}},
+                //{name: {$regex: filter.name || '', $exists: true, $options: 'i'}},
                 {price: {$gt: filter.min_price || 0, $lt: filter.max_price || MAX_INT}}]})
                 .limit(filter.limit || null)
                 .skip((filter.limit || 1) * filter.skip || 0)

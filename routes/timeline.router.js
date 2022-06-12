@@ -9,6 +9,12 @@ router.get('/',
         res.sendFile(path.resolve('./public/timeline.html'));
 });
 
+router.get('/publish',
+    passport.authenticate('jwt', {session: false}),
+    (req, res) => {
+        res.sendFile(path.resolve('./public/publish.html'));    
+});
+
 router.get('/:id',
     passport.authenticate('jwt', {session: false}),
     (req, res) => {
