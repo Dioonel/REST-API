@@ -1,16 +1,9 @@
 const TIMELINE_URL = 'http://localhost:8080/timeline';
 const POSTINGS_URL = 'http://localhost:8080/api/postings';
-const username = ('; '+document.cookie).split(`; username=`).pop().split(';')[0];                       // Gets the username
 
-document.getElementById('formSearchBar').addEventListener('submit', executeSearchBar);
 document.getElementById('sortingForm').addEventListener('submit', executeSorting);
 
 document.addEventListener('DOMContentLoaded', async () => {
-    if(username){                                                                                       // Displays de username in the nav
-        let myProfile = document.getElementById('nav-my-user');
-        myProfile.innerHTML = `${username}`;
-    }
-
     const postings = await searchPosts(`${POSTINGS_URL}${window.location.search}`);                 // Fetch the all the posts (query supported)
     for(let post of postings){                                                                      // Pushes the posts into the HTML div
         pushPosts(post);
@@ -60,45 +53,6 @@ function pushPosts(post){                                                       
 
 function getDetailedPost(myId){
     location.href = `http://localhost:8080/timeline/${myId}`;
-}
-
-async function executeSearchBar(){                                                                     // Search bar functionality
-    let keywords = document.getElementById('searchBar').value;
-
-    if(keywords.trim()){
-        let data = {
-            name: keywords.trim(),
-            //min_price: document.getElementById().value,
-            //max_price: document.getElementById().value,
-        }
-
-        location.href = filterURLMaker(data);
-    }
-}
-
-function filterURLMaker(data){                                                        // Making the URL with filters (only search bar supported)
-    let filterURL = `${TIMELINE_URL}?`;
-
-    if(data.name){
-        filterURL += `name=${data.name}&`;
-    }
-    // if(data.min_price){
-    //     filterURL += `min_price=${data.min_price}&`;
-    // }
-    // if(data.max_price){
-    //     filterURL += `max_price=${data.max_price}&`;
-    // }
-    // if(data.quantity){
-    //     filterURL += `quantity=${data.quantity}&`;
-    // }
-    // if(data.sortBy){
-    //     filterURL += `sortBy=${data.sortBy}&`;
-    // }
-    // if(data.sortWay){
-    //     filterURL += `sortWay=${data.sortWay}&`;
-    // }
-
-    return filterURL;
 }
 
 async function executeSorting(){                                                                     // Sorting functionality
