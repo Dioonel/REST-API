@@ -7,12 +7,12 @@ document.getElementById('addCommentForm').addEventListener('submit', createComme
 
 document.addEventListener('DOMContentLoaded', async () => {
     let postInfo = await executeSearch(`${POSTINGS_URL}/${postId}`);
-    if(postInfo?.statusCode === 409){
+    if(postInfo?.statusCode === 409){                                                         // Go back to /timeline if the URL's id is invalid
         location.href = TIMELINE_URL;
     }
     
-    makePostingHTML(postInfo);
-    pushComments(postInfo.comments);
+    makePostingHTML(postInfo);                                                                // Display the post's data
+    pushComments(postInfo.comments);                                                          // Display the post's comments
 });
 
 async function executeSearch(url){

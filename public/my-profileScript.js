@@ -3,7 +3,7 @@ const URL = `http://localhost:8080/api/users/${id}`;
 
 document.getElementById('ppicPatch').addEventListener('change', thumbnailPreview);
 
-window.addEventListener('DOMContentLoaded', async () => {
+window.addEventListener('DOMContentLoaded', async () => {                                   // Load and display the user's data
     const res = await fetchUserData(URL);
 
     const username = document.getElementById('username');
@@ -36,15 +36,12 @@ async function fetchUserData(url){
     return response.json();
 }
 
-async function editEnable(){
-    const baseDiv = document.querySelector('.div1');
-    const formDiv = document.querySelector('.div4');
-
-    baseDiv.style.display = 'none';
-    formDiv.style.display = 'block';
+function editEnable(){                                                                      // Change to edit profile mode
+    document.querySelector('.div1').style.display = 'none';
+    document.querySelector('.div4').style.display = 'block';
 }
 
-async function formPatch(){
+async function formPatch(){                                                                         // Update profile and reload /my-profile
     const first_name = {prop: 'first_name', value: document.getElementById('fNamePatch').value};
     const last_name = {prop: 'last_name', value: document.getElementById('lNamePatch').value};
     const gender = {prop: 'gender', value: document.getElementById('genderPatch').value};
@@ -86,11 +83,15 @@ async function executePatch(url, obj){
     return response.json();
 }
 
-function thumbnailPreview(){
-    setTimeout(() => {
-        const thumbnail = document.querySelector('.thumbnail');
-        thumbnail.src = imagePatch.value;
-    }, 500)
+function thumbnailPreview(){                                                                         // Display new profile picture thumbnail
+    try{
+        setTimeout(() => {
+            const thumbnail = document.querySelector('.thumbnail');
+            thumbnail.src = document.getElementById('ppicPatch').value;
+        }, 200)
+    } catch (err) {
+        return false;
+    }
 }
 
 function updateMsg (data) {
