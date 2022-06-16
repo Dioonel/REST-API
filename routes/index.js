@@ -7,6 +7,7 @@ const registerRouter = require("./register.router");
 const myProfileRouter = require("./my-profile.router");
 const postingsRouter = require("./postings.router");
 const timelineRouter = require("./timeline.router");
+const cartRouterAPI = require("./my-cartAPI.router");
 
 function routerAPI(app){
     app.use('/products', productsIndexRouter);
@@ -18,6 +19,7 @@ function routerAPI(app){
     app.use('/my-profile', myProfileRouter);
     app.use('/api/postings', postingsRouter);
     app.use('/timeline', timelineRouter);
+    app.use('/api/my-cart', cartRouterAPI);
 }
 
 module.exports = routerAPI;

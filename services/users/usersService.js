@@ -1,6 +1,7 @@
 const boom = require('@hapi/boom');
 const store = require('./usersStore');
 const bcrypt = require('bcrypt');
+const cartStore = require('./../carts/cartStore');
 
 class UsersService {
 
@@ -20,9 +21,12 @@ class UsersService {
 
             let myUser = await store.add(newData);
             
-            myUser = myUser.toObject();
-            delete myUser.password;
-            return myUser;
+            let myCart = await cartStore.cartInit(myUser._id);
+            let fullUser = await store.update(myUser._id, {cart: myCart});
+
+            fullUser = fullUser.toObject();
+            delete fullUser.password;
+            return fullUser;
         } catch (err) {
             throw boom.conflict('Please, try again later.');
         }       
@@ -69,6 +73,33 @@ class UsersService {
             return await store.delete(id);
         } catch (err) {
             throw boom.notFound('User not found.');
+        }
+    }
+
+
+
+
+    async findMyCart(userId){
+        try{
+            let myUser = await this.findOne(userId);
+
+            if(myUser._id){
+                if(!myUser.cart){
+                    let myCart = await cartStore.cartInit(myUser._id);
+                    let fullUser = await store.update(myUser._id, {cart: myCart});
+                    myUser = fullUser;
+                }
+                let response = await cartStore.getCart(myUser._id);
+                let resolvedCart = {
+                    ...response._doc,
+                    subtotal: await response.subtotal,
+                }
+                return resolvedCart;
+            } else {
+                throw boom.notFound('User not found.');
+            }
+        } catch (err) {
+            throw boom.conflict('Error getting a cart.');
         }
     }
 }
