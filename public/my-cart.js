@@ -29,7 +29,7 @@ async function executeGetCart(url){
     return response.json();
 }
 
-async function pushItems(item){                                                                               // Populating the cart with the items
+async function pushItems(item){                                                                        // Populating the cart with the items
     let myBody = document.querySelector('.full-body-div');
     console.log(item._id);
     myBody.innerHTML += `<div class="cart-item-div">
