@@ -387,3 +387,10 @@ select {
     text-align: center;
     font-size: 30px;
 }
+
+.removeItem{
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 5px;
+}
