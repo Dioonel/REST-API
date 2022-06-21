@@ -26,8 +26,17 @@ async function deleteManyItems(itemIds){
     }
 }
 
+async function updateItemAmount(itemId, amount){
+    try{
+        return await Model.findByIdAndUpdate(itemId, { amount: amount }, {runValidators: true, new: true});
+    } catch (err) {
+        throw boom.internal('Internal error, please try again later');
+    }
+}
+
 module.exports = {
     addItem,
     deleteItem,
     deleteManyItems,
+    updateItemAmount,
 }

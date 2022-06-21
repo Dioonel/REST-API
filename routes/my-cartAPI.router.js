@@ -27,7 +27,7 @@ router.post('/',
                 if(productId){
                     const myCart = await userService.findMyCart(req.user.sub);
 
-                    const response = await cartService.push(myCart._id, productId, amount);
+                    const response = await cartService.push(myCart, productId, amount);
                     
                     res.json(response);
                 } else {

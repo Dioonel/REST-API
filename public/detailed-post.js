@@ -1,5 +1,6 @@
 const TIMELINE_URL = 'http://localhost:8080/timeline';
 const POSTINGS_URL = `http://localhost:8080/api/postings`;
+const CART_API_URL = 'http://localhost:8080/api/my-cart';
 const user_id = ('; '+document.cookie).split(`; id=`).pop().split(';')[0];
 let postId = window.location.pathname.split('/timeline')[1];
 
@@ -10,9 +11,28 @@ document.addEventListener('DOMContentLoaded', async () => {
     if(postInfo?.statusCode === 409){                                                         // Go back to /timeline if the URL's id is invalid
         location.href = TIMELINE_URL;
     }
-    
+    console.log(postInfo);
+    document.querySelector('.btn').style.display = 'inline-block';
+    document.querySelector('.btn').addEventListener('click', addToCart);   
+
     makePostingHTML(postInfo);                                                                // Display the post's data
     pushComments(postInfo.comments);                                                          // Display the post's comments
+
+
+    async function addToCart(){
+        let productId = postInfo?.product?._id;                                               // Add to cart functionality
+        let amount = parseInt(document.getElementById('cartAmount').value);
+
+        let obj = {
+            productId,
+            amount,
+        }
+        obj = JSON.stringify(obj);
+        let response = await executeAddToCart(CART_API_URL, obj);
+        console.log(response);
+        window.alert(`Product: ${postInfo?.product?.name} added to your cart.
+        Amount: ${amount}`);
+    }
 });
 
 async function executeSearch(url){
@@ -78,4 +98,15 @@ async function executeAddComment(url, obj){
         body: obj,
     });
     return res.json();
+}
+
+async function executeAddToCart(url, obj){
+    const res = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: obj,
+    });
+    return res.json()
 }

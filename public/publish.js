@@ -4,9 +4,10 @@ const user_id = ('; '+document.cookie).split(`; id=`).pop().split(';')[0];
 
 async function createPosting(){                                                               // Create a new post and redirect to that new post
     let product = {
-        name: document.getElementById('product-item-create').value,
+        name: document.getElementById('post-title-create').value,
         price: document.getElementById('product-price-create').value,
         image: document.getElementById('product-image-create').value,
+        seller: user_id,
     }
 
     product = JSON.stringify(product);

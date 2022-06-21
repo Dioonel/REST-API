@@ -29,7 +29,7 @@ cartSchema.virtual('subtotal').get(async function () {
     let subtotal = 0;
     for(let itemId of this.items){
         let myItem = await itemModel.findById(itemId).populate('product');
-        subtotal += (myItem?.product?.price) || 0 * (myItem?.amount) || 0;
+        subtotal += ((myItem?.product?.price) || 0 )* ((myItem?.amount) || 0);
     }
     return parseInt(subtotal);
 });

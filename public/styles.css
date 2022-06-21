@@ -354,3 +354,36 @@ select {
     font-weight: bold;
     text-align: center;
 }
+
+.cart-item-div{
+    display: flex;
+    border: 1px solid black;
+    position: relative;
+}
+
+.cart-img{
+    display: block;
+    width: 200px;
+    height: 200px;
+    border: 1px solid grey;
+    margin: 0 10px;
+}
+
+.cart-item-info-div{
+    text-align: left;
+}
+
+.cart-item-price{
+    text-align: right;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 3px;
+    margin-right: 6px;
+    background: rgba(255, 0, 0, .3);
+}
+
+.cart-total-price{
+    text-align: center;
+    font-size: 30px;
+}

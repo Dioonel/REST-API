@@ -16,7 +16,7 @@ async function getCart(userId){
     try{
         return await Model.findOne({user: userId})
         //.populate({path: 'users', select: 'username first_name last_name image contact'})
-        .populate({path: 'items', select: 'product amount', populate: {path: 'product', model: 'products', select: 'name price image'}});
+        .populate({path: 'items', select: 'product amount', populate: {path: 'product', model: 'products', select: 'name price image', populate: {path: 'seller', model:'users', select: 'username'}}});
     } catch (err) {
         throw boom.internal('Internal error, please try again later');
     }

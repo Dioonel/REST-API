@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     <a href="/timeline/publish">Publish</a>
     <a href="https://twitter.com/SuspenDioo">Contact us</a>
     <a href="/my-profile" id="nav-my-user" style="float:right"></a>
-    <a href="#" style="float:right">Your cart</a></l>
+    <a href="/my-cart" style="float:right">Your cart</a></l>
     <a href="/login" style="float:right">Change account</a>
     <div class="search-container">
         <form onsubmit="return false" id="formSearchBar">

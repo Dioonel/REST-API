@@ -15,6 +15,12 @@ const productSchema = new Schema({
         type: String,
         required: false,
     },
+    seller: {
+        type: mongoose.Types.ObjectId,
+        //required: true,
+        ref: 'users',
+        immutable: true,
+    },
     created_at: {
         type: Date,
         default: Date.now,

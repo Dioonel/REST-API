@@ -5,26 +5,40 @@ const itemStore = require('./itemStore');
 
 class CartService {
 
-    async push(cartId, productId, amount){
+    async push(cart, productId, amount){
         try {
-            if(!cartId || !productId){
+            if(!cart || !productId){
                 throw boom.badRequest("Can't post empty data.");
             }
 
-            let myProduct = await productStore.getOne(productId)
+            let myProduct = await productStore.getOne(productId)                                    // Finds the product
             if(myProduct?.name && myProduct?.price){
                 let item = {
                     product: myProduct._id,
                     amount: amount || 1
                 }
-                let myItem = await itemStore.addItem(item);
 
-                let filledCart = await store.pushItem(cartId, myItem._id);
+                for(let it of cart.items){
+                    if(it.product._id == productId){                                               // If the item already exists in the cart
+                        let updatedItem = await itemStore.updateItemAmount(it._id, (it.amount + amount)); // Update the amount of that item
+                        let itemIndex = cart.items.findIndex((item => item._id == updatedItem._id));
+                        cart.items[itemIndex] = updatedItem;
+                        let resolvedCart = {
+                        ...cart,
+                        subtotal: await cart.subtotal,
+                        }
+                        return resolvedCart;
+                    }
+                }
+                
+                let myItem = await itemStore.addItem(item);                                   // Else, create a new item and add it to the cart
+
+                let filledCart = await store.pushItem(cart._id, myItem._id);
                 let resolvedCart = {
                     ...filledCart._doc,
                     subtotal: await filledCart.subtotal,
                 }
-                return resolvedCart
+                return resolvedCart;
             } else {
                 throw boom.notFound("Can't buy an invalid product.")
             }
@@ -61,11 +75,8 @@ class CartService {
                 itemIds.push(String(item._id));
             }
 
-            console.log(itemIds);
-
             if (itemIds.length > 0){
                 let deletedItems = await itemStore.deleteManyItems(itemIds);
-                console.log(deletedItems);
                 return await store.emptyCart(cart._id);
             } else {
                 return {message: 'This cart is already empty!'};
